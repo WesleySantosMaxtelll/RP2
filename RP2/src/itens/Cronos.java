@@ -7,7 +7,7 @@ public class Cronos {
 	int qViagens =0; //quantidade de viagens realizadas
 	float totalTempo=0; //variavel que acumula o tempo de todas as viagens
 	
-	private boolean onibusParadas[];
+	private boolean onibusParadas[][];
 	
 	static float tempoUniversal=0;
 }
