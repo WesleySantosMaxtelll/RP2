@@ -1,3 +1,4 @@
+package itens;
 
 public class Pessoa {
 	
@@ -7,7 +8,7 @@ public class Pessoa {
 	public Pessoa(int pontoAtual){
 		
 		destino= 0;// tem que ser um ponto depois do ponto atual;
-		inicioEspera=Cronos.tempoUniversal;// começou a espera;
+		inicioEspera=Cronos.tempoUniversal;// comeï¿½ou a espera;
 	}
 
 }
