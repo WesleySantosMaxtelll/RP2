@@ -4,9 +4,9 @@ public class Pessoa {
 	
 	private int destino = 0;
 	private int partida = 0;
-	private float inicioEspera = 0;// em que tempo(horario a pessoa chegou ao ponto)
-	private float horarioChegada = 0;
-	public Pessoa(int destino, int partida, float inicioEspera) {
+	private double inicioEspera = 0;// em que tempo(horario a pessoa chegou ao ponto)
+	private double horarioChegada = 0;
+	public Pessoa(int destino, int partida, double inicioEspera) {
 		super();
 		this.destino = destino;
 		this.partida = partida;
@@ -24,16 +24,16 @@ public class Pessoa {
 	public void setPartida(int partida) {
 		this.partida = partida;
 	}
-	public float getInicioEspera() {
+	public double getInicioEspera() {
 		return inicioEspera;
 	}
-	public void setInicioEspera(float inicioEspera) {
+	public void setInicioEspera(double inicioEspera) {
 		this.inicioEspera = inicioEspera;
 	}
-	public float getHorarioChegada() {
+	public double getHorarioChegada() {
 		return horarioChegada;
 	}
-	public void setHorarioChegada(float horarioChegada) {
+	public void setHorarioChegada(double horarioChegada) {
 		this.horarioChegada = horarioChegada;
 	}
 	

@@ -3,7 +3,7 @@ package itens;
 public class Onibus {
 	
 	private int id; // Associado a uma coluna da matriz do cromossomo
-	private float tempoUltimaParada=0;// em qual tempo o onibus esta, para descobrir se ele esta chegando na proxima parada
+	private double tempoUltimaParada=0;// em qual tempo o onibus esta, para descobrir se ele esta chegando na proxima parada
 	private int parada=0;// registra a ultima parada que o onibus estava;
 	private int capacidade=0; // numero maximo de passageiros
 
@@ -16,11 +16,11 @@ public class Onibus {
 	}
 
 
-	public float getTempoUltimaParada() {
+	public double getTempoUltimaParada() {
 		return tempoUltimaParada;
 	}
 
-	public void setTempoUltimaParada(float tempoUltimaParada) {
+	public void setTempoUltimaParada(double tempoUltimaParada) {
 		this.tempoUltimaParada = tempoUltimaParada;
 	}
 
