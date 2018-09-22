@@ -1,3 +1,5 @@
+package geneticos;
+
 import java.util.ArrayList;
 
 public class Roleta {

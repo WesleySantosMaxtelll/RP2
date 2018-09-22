@@ -1,3 +1,5 @@
+package geneticos;
+
 
 public class Setor {
 	double base;
