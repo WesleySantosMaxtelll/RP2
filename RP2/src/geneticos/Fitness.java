@@ -13,9 +13,9 @@ public class Fitness {
 	GeradorTeste teste = new GeradorTeste();
 	private TemposMedios tm = TemposMedios.getInstance();
 	private int qtdPonto = tm.getTempoParada().length;
-
 	private ArrayList<Pessoa> passageiros = teste.getPassageiros();
 	private ArrayList<Onibus> onibus = teste.getOnibus();
+	private int onibusRodando = 0;
 	
 	public double calculaFitness(Cromossomo cal, ArrayList<Onibus> onibu, ArrayList<Pessoa> pass) {
 		double fitness = 0.0;
@@ -23,9 +23,10 @@ public class Fitness {
 		cromossomo = cal;
 		passageiros = pass;
 		double tempoCorrente = 0.0;
-		
+		onibusRodando = onibus.size();
+		System.out.println(onibusRodando);
 		// Para cada rodada 
-		while(tempoCorrente < 120.0) {
+		while(onibusRodando > 0) {
 			for(int i = 0; i<onibus.size(); i++) {
 				System.out.println("Atualização para o tempo " + tempoCorrente+ " e para o onibus "+i);
 				atualizaOnibus(i, tempoCorrente); // Atualiza a posicao dos onibus pelo tempo corrente
@@ -82,8 +83,10 @@ public class Fitness {
 				if(o.getParada() < qtdPonto-1) {
 					o.setTempoProxParada(tm.getTempoTrajetoEntrePontos()[o.getParada()][i]);
 					o.setProxParada();
-				} else
+				} else {
 					o.setTerminou();
+					onibusRodando--;
+				}
 			} else
 				System.out.println("Onibus esta parado no ponto " + o.getParada());
 		}else {
@@ -97,8 +100,10 @@ public class Fitness {
 					if(o.getParada() < qtdPonto-1) {
 						o.setTempoProxParada(tm.getTempoTrajetoEntrePontos()[o.getParada()][i]);
 						o.setProxParada();
-					} else
+					} else {
 						o.setTerminou();
+						onibusRodando--;
+					}
 				}
 			} else
 				System.out.println("Onibus esta no trajeto para o ponto "+o.getParada());

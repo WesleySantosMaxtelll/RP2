@@ -99,7 +99,7 @@ public class Principal {
 		int nOnibus = 5;
 		int nPontos = 4;
 		double tempoOnibus[] = {10, 15, 71, 80, 100};
-		double tempoParadas[] = {3, 2, 4, 2};
+		double tempoParadas[] = {3, 2, 4, 22};
 		TemposMedios tm = TemposMedios.getInstance();
 		tm.setTempoOnibus(tempoOnibus);
 		tm.setTempoParada(tempoParadas);
