@@ -10,6 +10,7 @@ public class GeradorTeste {
 	private ArrayList<Pessoa> passageiros = new ArrayList<>();
 	private ArrayList<Onibus> onibus = new ArrayList<>();
 	private final double totalTime = 50000;
+	private int qtdPontos = 0;
 	// Tempo total de um dia é 50000 unidades
 	
 
@@ -20,8 +21,16 @@ public class GeradorTeste {
 		geraUsuarios(passageirosN);
 	}
 	
+	public int getQtdPontos() {
+		return qtdPontos;
+	}
+
 	public ArrayList<Pessoa> getPassageiros() {
 		return passageiros;
+	}
+	
+	public ArrayList<Onibus> getOnibus() {
+		return onibus;
 	}
 	
 	
@@ -46,6 +55,7 @@ public class GeradorTeste {
 	}
 	
 	public void geraTemposPontos(int qtd) {
+		qtdPontos = qtd;
 		TemposMedios instancia = TemposMedios.getIntance();
 		instancia.crieArrayParadas(qtd);
 		for(int i = 0; i <qtd; i++) {

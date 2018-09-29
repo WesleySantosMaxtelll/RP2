@@ -4,6 +4,7 @@ public class TemposMedios {
 	private double tempoParada[]; // Tempo medio de parada em cada ponto
 	private double tempoOnibus[]; // Tempo que o onibus inicia na linha
 	private double tempoTrajetoSemParadas[]; // Tempo que o onibus levaria sem parar nenhuma vez
+	private double tempoTrajetoEntrePontos[][]; // Tempo entre os pontos
 	
 	private static TemposMedios instance = new TemposMedios();
 	private TemposMedios() {}
@@ -12,6 +13,23 @@ public class TemposMedios {
 		return instance;
 	}
 	
+	
+	public double[][] getTempoTrajetoEntrePontos() {
+		return tempoTrajetoEntrePontos;
+	}
+
+	public void setTempoTrajetoEntrePontos(double[][] tempoTrajetoEntrePontos) {
+		this.tempoTrajetoEntrePontos = tempoTrajetoEntrePontos;
+	}
+
+	public static TemposMedios getInstance() {
+		return instance;
+	}
+
+	public static void setInstance(TemposMedios instance) {
+		TemposMedios.instance = instance;
+	}
+
 	public void crieArrayOnibus(int tamanho) {
 		tempoOnibus = new double[tamanho];
 	}

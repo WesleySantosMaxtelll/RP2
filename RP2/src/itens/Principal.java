@@ -18,6 +18,14 @@ public class Principal {
 		for(Pessoa p:pessoas) {
 			System.out.println(p.getInicioEspera()+" "+p.getPartida() + " "+p.getDestino());
 		}
+		
+		
+		
+		Onibus o = new Onibus();
+		Pessoa p = new Pessoa(1, 1, 1.0);
+		o.getPassageiros().add(p);
+		
+		
 //		ArrayList<Onibus> onibus = gerador.geraOnibus(50);
 //		TemposMedios instancia = TemposMedios.getIntance();
 //		System.out.println("****************************************\n");
