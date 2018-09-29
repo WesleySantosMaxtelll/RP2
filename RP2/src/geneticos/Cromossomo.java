@@ -3,7 +3,7 @@ package geneticos;
 
 public class Cromossomo {
 	
-	private boolean[]conteudo;
+	boolean[]conteudo;
 	
 	public Cromossomo(int qGenes){
 		conteudo=new boolean[qGenes];

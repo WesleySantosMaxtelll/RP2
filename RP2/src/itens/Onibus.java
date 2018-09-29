@@ -8,13 +8,31 @@ public class Onibus {
 	private int id; // Associado a uma coluna da matriz do cromossomo
 	private double tempoUltimaParada=0;// em qual tempo o onibus esta, para descobrir se ele esta chegando na proxima parada
 	private double tempoProxParada=0;// em qual tempo o onibus esta, para descobrir se ele esta chegando na proxima parada
-	private int parada=0;// registra a ultima parada que o onibus estava;
-	private int capacidade=0; // numero maximo de passageiros
-	
+	private double tempoParadoNoPronto=0;// em qual tempo o onibus esta, para descobrir se ele esta chegando na proxima parada
+	private int parada=0;// registra a proxima parada que o onibus estava;
+	private int capacidade=2; // numero maximo de passageiros
+	private boolean paradoNoPonto = false;
+	private boolean operacao = false;
 	private ArrayList<Pessoa> passageiros = new ArrayList<>();
 	
 
 	
+	public boolean isParadoNoPonto() {
+		return paradoNoPonto;
+	}
+
+	public void setParadoNoPonto(boolean paradoNoPonto) {
+		this.paradoNoPonto = paradoNoPonto;
+	}
+
+	public double getTempoParadoNoPronto() {
+		return tempoParadoNoPronto;
+	}
+
+	public void setTempoParadoNoPronto(double tempoParadoNoPronto) {
+		this.tempoParadoNoPronto = tempoParadoNoPronto;
+	}
+
 	public double getTempoProxParada() {
 		return tempoProxParada;
 	}
@@ -52,8 +70,8 @@ public class Onibus {
 		return parada;
 	}
 
-	public void setParada(int parada) {
-		this.parada = parada;
+	public void setProxParada() {
+		parada++;
 	}
 
 	public int getCapacidade() {
@@ -71,6 +89,13 @@ public class Onibus {
 		return false;
 	}
 	
+	public boolean deveSair() {
+		tempoParadoNoPronto --;
+		if(tempoParadoNoPronto <= 0.0)
+			return true;
+		return false;
+	}
+	
 	public void atualizaTempoParadaAnterior() {
 		// TODO Auto-generated method stub
 		tempoUltimaParada++;
@@ -80,5 +105,17 @@ public class Onibus {
 		passageiros.remove(p);
 	}
 
+	public boolean cabemPassageiros() {
+		if(passageiros.size() < capacidade) return true;
+		return false;
+	}
+
+	public boolean terminou() {
+		return operacao;
+	}
+	
+	public void setTerminou() {
+		operacao = true;
+	}
 
 }

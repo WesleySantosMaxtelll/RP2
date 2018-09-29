@@ -15,10 +15,10 @@ public class GeradorTeste {
 	
 
 	public void criarCenario(int onibus, int pontos, int passageirosN) {
-		geraTemposPontos(pontos);
+		//geraTemposPontos(pontos);
 		geraOnibus(onibus);
-		geraTemposTrajetos(onibus);
-		geraUsuarios(passageirosN);
+		//geraTemposTrajetos(onibus);
+		//geraUsuarios(passageirosN);
 	}
 	
 	public int getQtdPontos() {
@@ -37,12 +37,12 @@ public class GeradorTeste {
 	public void geraOnibus(int qtd) {
 		int tempo = 0;
 		int id = 0;
-		TemposMedios.getIntance().crieArrayOnibus(qtd);
+		TemposMedios.getInstance().crieArrayOnibus(qtd);
 		for(int i = 0; i <qtd; i++) {
 			Onibus novo = new Onibus();
 			novo.setId(id);
 			novo.setCapacidade(60);
-			TemposMedios.getIntance().atribuiValorOnibus(id++, (float)tempo);
+			TemposMedios.getInstance().atribuiValorOnibus(id++, (float)tempo);
 			tempo += totalTime/qtd;
 			onibus.add(novo);
 		}
@@ -56,7 +56,7 @@ public class GeradorTeste {
 	
 	public void geraTemposPontos(int qtd) {
 		qtdPontos = qtd;
-		TemposMedios instancia = TemposMedios.getIntance();
+		TemposMedios instancia = TemposMedios.getInstance();
 		instancia.crieArrayParadas(qtd);
 		for(int i = 0; i <qtd; i++) {
 			double tempo = numeroNoIntervalo(40, 300);
@@ -65,7 +65,7 @@ public class GeradorTeste {
 	}
 	
 	public void geraTemposTrajetos(int qtd) {
-		TemposMedios instancia = TemposMedios.getIntance();
+		TemposMedios instancia = TemposMedios.getInstance();
 		instancia.crieArrayOnibus(qtd);
 		double tempo = 0.0;
 		for(int i = 0; i <qtd; i++) {
@@ -78,7 +78,7 @@ public class GeradorTeste {
 	}
 	
 	public void geraUsuarios(int qtd) {
-		TemposMedios instancia = TemposMedios.getIntance();
+		TemposMedios instancia = TemposMedios.getInstance();
 		for(int i = 0; i <qtd/2; i++) {
 			int partida = (int)(Math.random()*instancia.getTempoParada().length);
 			int destino = (int)(Math.random()*(instancia.getTempoParada().length - partida) + partida+1);

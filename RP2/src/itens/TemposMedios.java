@@ -9,17 +9,19 @@ public class TemposMedios {
 	private static TemposMedios instance = new TemposMedios();
 	private TemposMedios() {}
 	
-	public static TemposMedios getIntance() {
-		return instance;
-	}
-	
 	
 	public double[][] getTempoTrajetoEntrePontos() {
 		return tempoTrajetoEntrePontos;
 	}
+	
 
 	public void setTempoTrajetoEntrePontos(double[][] tempoTrajetoEntrePontos) {
 		this.tempoTrajetoEntrePontos = tempoTrajetoEntrePontos;
+	}
+
+
+	public void alterarTempoTrajetoEntrePontos(int x, int y, double t) {
+		tempoTrajetoEntrePontos[x][y] = t;
 	}
 
 	public static TemposMedios getInstance() {
