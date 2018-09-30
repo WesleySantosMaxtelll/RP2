@@ -148,8 +148,6 @@ public class Principal {
 		passageiros.add(p4);
 		Pessoa p5 = new Pessoa(3, 2, 40);
 		passageiros.add(p5);
-		
-		
 		return passageiros;
 	}
 	
