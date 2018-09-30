@@ -5,7 +5,7 @@ public class Pessoa {
 	private int destino = 0;
 	private int partida = 0;
 	private double inicioEspera = 0;// em que tempo(horario a pessoa chegou ao ponto)
-	private double horarioChegada = 0;
+	private double horarioChegada = Integer.MAX_VALUE;
 	private int onibus = -1;
 	
 	public Pessoa(int destino, int partida, double inicioEspera) {

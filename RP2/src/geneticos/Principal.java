@@ -129,7 +129,11 @@ public class Principal {
 		}
 		
 		Fitness f = new Fitness();
-		System.out.println(f.calculaFitness(cromossomo, onibusd, todosOsPassageiros()));
+		long tempoInicial = System.currentTimeMillis();
+		f.calculaFitness(cromossomo, onibusd, todosOsPassageiros());
+		long tempoFinal = System.currentTimeMillis();
+		System.out.println(tempoFinal - tempoInicial);
+//		System.out.println(f.calculaFitness(cromossomo, onibusd, todosOsPassageiros()));
 	}
 	
 	public static ArrayList<Pessoa> todosOsPassageiros() {
