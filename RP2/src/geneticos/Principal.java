@@ -99,11 +99,12 @@ public class Principal {
 		int nOnibus = 5;
 		int nPontos = 4;
 		double tempoOnibus[] = {10, 15, 71, 80, 100};
-		double tempoParadas[] = {3, 2, 4, 22};
+		double tempoParadas[] = {3, 2, 4, 2};
+		
 		TemposMedios tm = TemposMedios.getInstance();
 		tm.setTempoOnibus(tempoOnibus);
 		tm.setTempoParada(tempoParadas);
-		Cromossomo cromossomo = new Cromossomo(nPontos*nPontos);
+		Cromossomo cromossomo = new Cromossomo(nPontos*nOnibus);
 		
 		boolean b[] = {
 				true, false, true, true,
@@ -130,10 +131,10 @@ public class Principal {
 		
 		Fitness f = new Fitness();
 		long tempoInicial = System.currentTimeMillis();
-		f.calculaFitness(cromossomo, onibusd, todosOsPassageiros());
+		double t = f.calculaFitness(cromossomo, onibusd, todosOsPassageiros());
 		long tempoFinal = System.currentTimeMillis();
 		System.out.println(tempoFinal - tempoInicial);
-//		System.out.println(f.calculaFitness(cromossomo, onibusd, todosOsPassageiros()));
+		System.out.println(t);
 	}
 	
 	public static ArrayList<Pessoa> todosOsPassageiros() {
