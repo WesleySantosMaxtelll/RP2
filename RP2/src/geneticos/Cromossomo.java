@@ -1,5 +1,6 @@
 package geneticos;
 
+import java.util.Arrays;
 
 public class Cromossomo {
 	
@@ -7,6 +8,13 @@ public class Cromossomo {
 	
 	public Cromossomo(int qGenes){
 		conteudo=new boolean[qGenes];
+		for(int i = 0; i<qGenes;i++) {
+			if(Math.random() < 0.5) 
+				conteudo[i] = false;
+			else
+				conteudo[i] = true;
+		}
+//		System.out.println(Arrays.toString(conteudo));
 		
 	}
 

@@ -114,7 +114,16 @@ public class Onibus {
 		return operacao;
 	}
 	
+	public void restart() {
+		operacao = false;
+	}
 	public void setTerminou() {
+		tempoUltimaParada=0;// em qual tempo o onibus esta, para descobrir se ele esta chegando na proxima parada
+		tempoProxParada=0;// em qual tempo o onibus esta, para descobrir se ele esta chegando na proxima parada
+		tempoParadoNoPronto=0;// em qual tempo o onibus esta, para descobrir se ele esta chegando na proxima parada
+		parada=0;// registra a proxima parada que o onibus estava;
+		capacidade=2; // numero maximo de passageiros
+		paradoNoPonto = false;
 		operacao = true;
 	}
 
