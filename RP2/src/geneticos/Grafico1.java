@@ -18,7 +18,7 @@ public class Grafico1 extends JFrame {
 	ArrayList<Double>dados;
 	public Grafico1(ArrayList<Double>dados){
 		this.dados=dados;
-		setSize(2000,1000);
+		setSize(2000,700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		revalidate();
@@ -46,7 +46,7 @@ public class Grafico1 extends JFrame {
 		
 		double razao= 800/(max-min);
 		
-		int r=40;
+		int r=5;
 		
 		int antX =120;
 		int antY=1000-60;
@@ -55,9 +55,9 @@ public class Grafico1 extends JFrame {
 		
 		for(Double dado:dados){
 			if(dado!=dados.get(0))
-			g.drawLine(antX, antY, antX+r, 1000-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80));
+			g.drawLine(antX, antY, antX+r, 700-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80));
 			antX=antX+r;
-			antY=1000-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80);
+			antY=700-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80);
 		}
 		
 		g.setColor(Color.DARK_GRAY);
@@ -72,8 +72,8 @@ public class Grafico1 extends JFrame {
 		
 		g.setFont(new Font("diafgdjhlog",Font.BOLD,18));
 		for(int i=0;i<9;i++){
-		g.drawString((float)(min+(i*100)/razao)+"",10,1000-80-(i*100));
-		g.drawLine(90+20,1000-80-(i*100),110+20,1000-80-(i*100));
+		g.drawString((float)(min+(i*100)/razao)+"",10,700-80-(i*100));
+		g.drawLine(90+20,700-80-(i*100),110+20,700-80-(i*100));
 		}
 		for(int k=0;k<100;k++){
 			g.drawLine(150+k*r+20,1000-60,150+k*r+20,1000-50);

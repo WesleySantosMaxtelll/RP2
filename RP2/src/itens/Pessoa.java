@@ -5,7 +5,7 @@ public class Pessoa {
 	private int destino = 0;
 	private int partida = 0;
 	private double inicioEspera = 0;// em que tempo(horario a pessoa chegou ao ponto)
-	private double horarioChegada = Short.MAX_VALUE;
+	private double horarioChegada = 120;
 	private int onibus = -1;
 	
 	public Pessoa(int destino, int partida, double inicioEspera) {
@@ -59,7 +59,7 @@ public class Pessoa {
 	}
 
 	public void restart() {
-		horarioChegada = Short.MAX_VALUE;
+		horarioChegada =120;
 		onibus = -1;
 	}
 	

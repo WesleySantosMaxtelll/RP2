@@ -30,7 +30,7 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 			for(int aux=0; aux<fitness.length;aux++){
 				double tempFit = f.calculaFitness(geracaoAtual[aux],onibusd, passageiros);
 				fitness[aux]=tempFit;
-				totalFitness+=tempFit;///FUNCAO DE MEDIR O FITNESS DO CROMOSSOMO
+				totalFitness+=1/tempFit;///FUNCAO DE MEDIR O FITNESS DO CROMOSSOMO
 			}
 			
 			
@@ -91,7 +91,7 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 		testeOnibus();
 		
 //		
-		Cromossomo[]cromossomos= new Cromossomo[6];
+		Cromossomo[]cromossomos= new Cromossomo[200];
 		for(int i=0;i<cromossomos.length;i++){
 			cromossomos[i]= new Cromossomo(20);
 		}
@@ -102,7 +102,7 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Cromossomo[] geracao = VidaCruel(cromossomos, 10000, 3, alfabeto,todosOnibus(5),todosOsPassageiros());
+		Cromossomo[] geracao = VidaCruel(cromossomos, 1000, 3, alfabeto,todosOnibus(5),todosOsPassageiros());
 		
 		for(Cromossomo b:geracao) {
 			System.out.println(Arrays.toString(b.getConteudo()));

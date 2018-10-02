@@ -52,7 +52,7 @@ public class Fitness {
 			c.restart();
 		}
 		if(printa)System.out.println(f);
-		return 1.0/f;
+		return 1/f;
 	}
 
 	private void descem(double tempoCorrente, int i) {
