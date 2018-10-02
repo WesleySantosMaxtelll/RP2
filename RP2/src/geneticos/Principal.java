@@ -11,27 +11,26 @@ import itens.TemposMedios;
 
 public class Principal {
 	
+static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,boolean[] alfabeto,
+		ArrayList<Onibus> onibusd,ArrayList<Pessoa> passageiros){
 	
-	
-	
-	static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,boolean[] alfabeto,ArrayList<Onibus> onibusd,ArrayList<Pessoa> passageiros){
-		
 		Fitness f=  new Fitness();
+		//temos que ter uma populaçã aleatoria;
+		ArrayList<Double>fitMedio=new ArrayList<>();
 		
-		//temos que ter uma popula�� aleatoria;
-		
-		double fitness[]=new double[cromossomos.length];
+		double fitness[]=new double[cromossomos.length];// para armazenar os fitness;
 		Cromossomo[]geracaoAtual=cromossomos;
 		
 		for(int geracao=0;geracao<Maxgeracoes;geracao++){
 			// para cada uma das geracoes 
-			System.out.println("geracao G"+geracao);
 			
+			System.out.println("Geração G"+geracao);
 			
+			double totalFitness=0;
 			for(int aux=0; aux<fitness.length;aux++){
-				fitness[aux]=f.calculaFitness(geracaoAtual[aux], onibusd, passageiros);
-				System.out.println("Calculou fitness de :"+aux);
-				System.out.println("fitness:"+1/fitness[aux]+"\n\n");
+				double tempFit = f.calculaFitness(geracaoAtual[aux],onibusd, passageiros);
+				fitness[aux]=tempFit;
+				totalFitness+=tempFit;///FUNCAO DE MEDIR O FITNESS DO CROMOSSOMO
 			}
 			
 			
@@ -41,26 +40,29 @@ public class Principal {
 			
 			Cromossomo[] novaGeracao=new Cromossomo[cromossomos.length];
 			
-			double[]probabilidade ={0.8,0.05,0.15};//chances de cada opera��o genetica
-			Roleta roletaOperacao = new Roleta(probabilidade);// roleta pra escolher a opera��o;
+			double[]probabilidade ={1,(3/(geracao+1)),1};//chances de cada operação genetica
+			Roleta roletaOperacao = new Roleta(probabilidade);// roleta pra escolher a operação;
 			
 			for(int i=0;i<cromossomos.length;i++){
-				//hora de escolher a opera�ao genetica
+				//hora de escolher a operaçao genetica
 				
 				int sorteio=roletaOperacao.sortear(); 
 				
 				switch(sorteio){
 					case 0:
 						novaGeracao[i]=OperadorGenetico.clonagem(geracaoAtual[roleta.sortear()]);
+						//System.out.println("clonagem");
 						break;
 					case 1:
 						novaGeracao[i]=OperadorGenetico.mutacao(geracaoAtual[roleta.sortear()], alfabeto);
+						//System.out.println("mutação");
 						break;
 					case 2:
 						if(i==cromossomos.length-1){
 							i--;
 							continue;
 						}
+						//System.out.println("crossover");
 						novaGeracao[i]=OperadorGenetico.Crossover1(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
 						novaGeracao[i+1]=OperadorGenetico.Crossover2(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
 						i++;
@@ -70,12 +72,19 @@ public class Principal {
 				
 				
 			}
+			System.out.println("F:"+totalFitness/geracaoAtual.length);
+			System.out.println("");
 			geracaoAtual=novaGeracao;
+			fitMedio.add(totalFitness/geracaoAtual.length);
+			
 			
 		}
-		
+		new Grafico1(fitMedio);
 		return geracaoAtual;
 	}
+
+
+
 
 	public static void main(String[] args) {
 		 //TODO Auto-generated method stub
@@ -119,7 +128,11 @@ public class Principal {
 //				false, true, true, true
 //		};
 		boolean b[] = {
-				false, true, false, false, false, true, false, true, false, false, false, false, true, true, false, true, true, true, false, false
+				true,true,true,true,
+				true,true,true,true,
+				true,true,true,true,
+				true,true,true,true,
+				true,true,true,true
 		};
 		cromossomo.setConteudo(b);
 		
@@ -144,16 +157,16 @@ public class Principal {
 		double t = f.calculaFitness(cromossomo, oni, pass);
 		long tempoFinal = System.currentTimeMillis();
 		System.out.println(tempoFinal - tempoInicial);
-		System.out.println(1/t);
+		System.out.println(t);
 //		System.out.println(pass.size());
 //		for (Pessoa p: pass) {
 //			System.out.println(p.getDestino() + " "+p.getPartida()+ " "+p.getHorarioChegada()+" "+p.getInicioEspera());
 //		}
-//		tempoInicial = System.currentTimeMillis();
-//		t = f.calculaFitness(cromossomo, oni, pass);
-//		tempoFinal = System.currentTimeMillis();
-//		System.out.println(tempoFinal - tempoInicial);
-//		System.out.println(t);
+		tempoInicial = System.currentTimeMillis();
+		t = f.calculaFitness(cromossomo, oni, pass);
+		tempoFinal = System.currentTimeMillis();
+		System.out.println(tempoFinal - tempoInicial);
+		System.out.println(t);
 //	
 	}
 	

@@ -57,6 +57,11 @@ public class Pessoa {
 	public void setHorarioChegada(double horarioChegada) {
 		this.horarioChegada = horarioChegada;
 	}
+
+	public void restart() {
+		horarioChegada = Short.MAX_VALUE;
+		onibus = -1;
+	}
 	
 	
 
