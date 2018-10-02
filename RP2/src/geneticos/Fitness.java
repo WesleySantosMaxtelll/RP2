@@ -78,7 +78,7 @@ public class Fitness {
 //				System.out.println("Onibus sai do ponto "+ o.getParada());
 				o.setParadoNoPonto(false);
 				if(o.getParada() < qtdPonto-1) {
-					o.setTempoProxParada(tm.getTempoTrajetoEntrePontos()[o.getParada()][i]);
+					o.setTempoProxParada(tm.getTempoTrajetoEntrePontos(o.getParada(), tempoCorrente));
 					o.setProxParada();
 				} else {
 					o.setTerminou();
@@ -96,7 +96,7 @@ public class Fitness {
 				} else {
 //					System.out.println("Onibus nao para nesse ponto");
 					if(o.getParada() < qtdPonto-1) {
-						o.setTempoProxParada(tm.getTempoTrajetoEntrePontos()[o.getParada()][i]);
+						o.setTempoProxParada(tm.getTempoTrajetoEntrePontos(o.getParada(), tempoCorrente));
 						o.setProxParada();
 					} else {
 						o.setTerminou();

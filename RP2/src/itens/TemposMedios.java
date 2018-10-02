@@ -10,8 +10,9 @@ public class TemposMedios {
 	private TemposMedios() {}
 	
 	
-	public double[][] getTempoTrajetoEntrePontos() {
-		return tempoTrajetoEntrePontos;
+	public double getTempoTrajetoEntrePontos(int paradaAtual, double tempoCorrente) {
+		double tempoExperado = 0.0;
+		return tempoCorrente;
 	}
 	
 
