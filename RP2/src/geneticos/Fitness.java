@@ -8,6 +8,7 @@ import itens.Pessoa;
 import itens.TemposMedios;
 import teste.GeradorTeste;
 
+
 public class Fitness {
 	private Cromossomo cromossomo;
 	GeradorTeste teste = new GeradorTeste();
