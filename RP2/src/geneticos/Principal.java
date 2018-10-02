@@ -9,89 +9,87 @@ import itens.TemposMedios;
 
 public class Principal {
 	
-//	static double fitnessTroll(Cromossomo c){
-//		double saida=0;
-//		if(c.conteudo[0]==1)saida++;
-//		if(c.conteudo[1]==2)saida++;
-//		if(c.conteudo[2]==3)saida++;
-//		if(c.conteudo[3]==4)saida++;
-//		if(c.conteudo[4]==5)saida++;
-//		return saida;
-//	}
-//	
-//	static void VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,int[] alfabeto){
-//		
-//		//temos que ter uma popula�� aleatoria;
-//		
-//		double fitness[]=new double[cromossomos.length];
-//		Cromossomo[]geracaoAtual=cromossomos;
-//		
-//		for(int geracao=0;geracao<Maxgeracoes;geracao++){
-//			// para cada uma das geracoes 
-//			System.out.println("gera��o G"+geracao);
-//			
-//			
-//			for(int aux=0; aux<fitness.length;aux++){
-//				fitness[aux]=fitnessTroll(geracaoAtual[aux]);///FUNCAO DE MEDIR O FITNESS DO CROMOSSOMO
-//			}
-//			
-//			
-//			// para compor a nova geracao
-//			
-//			Roleta roleta = new Roleta(fitness);//roleta que escolhe individuos
-//			
-//			Cromossomo[] novaGeracao=new Cromossomo[cromossomos.length];
-//			
-//			double[]probabilidade ={0.8,0.05,0.15};//chances de cada opera��o genetica
-//			Roleta roletaOperacao = new Roleta(probabilidade);// roleta pra escolher a opera��o;
-//			
-//			for(int i=0;i<cromossomos.length;i++){
-//				//hora de escolher a opera�ao genetica
-//				
-//				int sorteio=roletaOperacao.sortear(); 
-//				
-//				switch(sorteio){
-//					case 0:
-//						novaGeracao[i]=OperadorGenetico.clonagem(geracaoAtual[roleta.sortear()]);
-//						break;
-//					case 1:
-//						novaGeracao[i]=OperadorGenetico.mutacao(geracaoAtual[roleta.sortear()], alfabeto);
-//						break;
-//					case 2:
-//						if(i==cromossomos.length-1){
-//							i--;
-//							continue;
-//						}
-//						novaGeracao[i]=OperadorGenetico.Crossover1(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
-//						novaGeracao[i+1]=OperadorGenetico.Crossover2(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
-//						i++;
-//						break;
-//				}
-//				
-//				
-//				
-//			}
-//			geracaoAtual=novaGeracao;
-//			for(Cromossomo c: geracaoAtual){
-//				for(Integer i: c.conteudo){
-//					System.out.print(i.intValue());
-//				}
-//				System.out.println("");
-//			}
-//		}
-//		
-//	}
+	
+	
+	
+	static void VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,boolean[] alfabeto,ArrayList<Onibus> onibusd,ArrayList<Pessoa> passageiros){
+		
+		Fitness f=  new Fitness();
+		
+		//temos que ter uma popula�� aleatoria;
+		
+		double fitness[]=new double[cromossomos.length];
+		Cromossomo[]geracaoAtual=cromossomos;
+		
+		for(int geracao=0;geracao<Maxgeracoes;geracao++){
+			// para cada uma das geracoes 
+			System.out.println("geracao G"+geracao);
+			
+			
+			for(int aux=0; aux<fitness.length;aux++){
+				fitness[aux]=f.calculaFitness(geracaoAtual[aux], onibusd, passageiros);
+				System.out.println("Calculou fitness de :"+aux);
+			}
+			
+			
+			// para compor a nova geracao
+			
+			Roleta roleta = new Roleta(fitness);//roleta que escolhe individuos
+			
+			Cromossomo[] novaGeracao=new Cromossomo[cromossomos.length];
+			
+			double[]probabilidade ={0.8,0.05,0.15};//chances de cada opera��o genetica
+			Roleta roletaOperacao = new Roleta(probabilidade);// roleta pra escolher a opera��o;
+			
+			for(int i=0;i<cromossomos.length;i++){
+				//hora de escolher a opera�ao genetica
+				
+				int sorteio=roletaOperacao.sortear(); 
+				
+				switch(sorteio){
+					case 0:
+						novaGeracao[i]=OperadorGenetico.clonagem(geracaoAtual[roleta.sortear()]);
+						break;
+					case 1:
+						novaGeracao[i]=OperadorGenetico.mutacao(geracaoAtual[roleta.sortear()], alfabeto);
+						break;
+					case 2:
+						if(i==cromossomos.length-1){
+							i--;
+							continue;
+						}
+						novaGeracao[i]=OperadorGenetico.Crossover1(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
+						novaGeracao[i+1]=OperadorGenetico.Crossover2(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
+						i++;
+						break;
+				}
+				
+				
+				
+			}
+			geracaoAtual=novaGeracao;
+			
+		}
+		
+	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		 //TODO Auto-generated method stub
 		testeOnibus();
 		
-//		Cromossomo[]cromossomos= new Cromossomo[100];
-//		for(int i=0;i<cromossomos.length;i++){
-//			cromossomos[i]= new Cromossomo(5);
-//		}
-//		int[]alfabeto={1,2,3,4,5,6,7,8,9,0};
-//		VidaCruel(cromossomos, 100, 3, alfabeto);
+		
+		Cromossomo[]cromossomos= new Cromossomo[2];
+		for(int i=0;i<cromossomos.length;i++){
+			cromossomos[i]= new Cromossomo(20);
+		}
+		boolean[]alfabeto={true,false};
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		VidaCruel(cromossomos, 100, 3, alfabeto,todosOnibus(5),todosOsPassageiros());
 
 	}
 	
@@ -122,19 +120,24 @@ public class Principal {
 										{4, 5, 1, 6, 3}};
 		
 		tm.setTempoTrajetoEntrePontos(temposTrajetos);
-		ArrayList<Onibus> onibusd= new ArrayList<>();
-		for(int i = 0; i<nOnibus;i++) {
-			Onibus novo = new Onibus();
-			novo.setId(i);
-			onibusd.add(novo);
-		}
 		
+	/*	
 		Fitness f = new Fitness();
 		long tempoInicial = System.currentTimeMillis();
 		double t = f.calculaFitness(cromossomo, onibusd, todosOsPassageiros());
 		long tempoFinal = System.currentTimeMillis();
 		System.out.println(tempoFinal - tempoInicial);
 		System.out.println(t);
+		*/
+	}
+	public static ArrayList<Onibus> todosOnibus (int nOnibus){
+		ArrayList<Onibus> onibusd= new ArrayList<>();
+		for(int i = 0; i<nOnibus;i++) {
+			Onibus novo = new Onibus();
+			novo.setId(i);
+			onibusd.add(novo);
+		}
+		return onibusd;
 	}
 	
 	public static ArrayList<Pessoa> todosOsPassageiros() {

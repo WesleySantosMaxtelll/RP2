@@ -3,7 +3,7 @@ package geneticos;
 
 public class OperadorGenetico {
 
-	static Cromossomo mutacao(Cromossomo original,int[]alfabeto){
+	static Cromossomo mutacao(Cromossomo original,boolean[]alfabeto){
 		
 		int posicao=(int)(Math.random()*original.conteudo.length);// escolhe uma posicao aleatoria no conteudo do cromossomo
 		original.conteudo[posicao]=alfabeto[(int)(Math.random()*alfabeto.length)];

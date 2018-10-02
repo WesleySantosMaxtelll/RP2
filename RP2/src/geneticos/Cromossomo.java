@@ -7,6 +7,7 @@ public class Cromossomo {
 	
 	public Cromossomo(int qGenes){
 		conteudo=new boolean[qGenes];
+		
 	}
 
 	public boolean[] getConteudo() {
