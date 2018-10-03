@@ -17,6 +17,12 @@ public class Cromossomo {
 //		System.out.println(Arrays.toString(conteudo));
 		
 	}
+	
+	public void setRotaPadrao(){
+		for(int i=0;i<conteudo.length;i++){
+			conteudo[i]=true;
+		}
+	}
 
 	public boolean[] getConteudo() {
 		return conteudo;

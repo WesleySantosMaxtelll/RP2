@@ -3,6 +3,7 @@ package geneticos;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,18 +12,30 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Grafico1 extends JFrame {
 	
+	Painel p;
+	
 	ArrayList<Double>dados;
-	public Grafico1(ArrayList<Double>dados){
+	double alturaLinhabase=0;
+	public Grafico1(ArrayList<Double>dados, double alturaLinhabase){
+		this.alturaLinhabase=alturaLinhabase;
 		this.dados=dados;
 		setSize(2000,700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		revalidate();
+		this.alturaLinhabase=alturaLinhabase;
+		
 	}
+	//gambiarra
+	{
+		p=new Painel(this);
+	}
+	
 	public void salvarImagem(String nome, File file) {
 		BufferedImage image = new BufferedImage(getWidth(),getHeight(), BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2 = image.createGraphics();
@@ -47,38 +60,44 @@ public class Grafico1 extends JFrame {
 		double razao= 800/(max-min);
 		
 		int r=5;
+		if(p!=null)r=r+(int)(p.zoom);
 		
 		int antX =120;
-		int antY=1000-60;
+		int antY=getHeight()-60;
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(3));
 		
 		for(Double dado:dados){
 			if(dado!=dados.get(0))
-			g.drawLine(antX, antY, antX+r, 700-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80));
+			g.drawLine(antX, antY, antX+r, getHeight()-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80));
 			antX=antX+r;
-			antY=700-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80);
+			antY=getHeight()-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80);
 		}
 		
 		g.setColor(Color.DARK_GRAY);
-		g.drawLine(120, 1000-60, 120, 0);
+		g.drawLine(120, getHeight()-60, 120, 0);
 		
-		g.drawLine(100, 1000-60, 2000,1000-60);
+		g.drawLine(100, getHeight()-60, 2000,getHeight()-60);
 		
 		g.setColor(Color.BLACK);
 		
-		g.drawLine(90,1000-80,110,1000-80);// significa 0.1
+		g.drawLine(90,getHeight()-80,110,getHeight()-80);// significa 0.1
 		//g.drawLine(300-150,30,300-150,70);// siginifica -0.05
 		
 		g.setFont(new Font("diafgdjhlog",Font.BOLD,18));
 		for(int i=0;i<9;i++){
-		g.drawString((float)(min+(i*100)/razao)+"",10,700-80-(i*100));
-		g.drawLine(90+20,700-80-(i*100),110+20,700-80-(i*100));
+		g.drawString((float)(min+(i*100)/razao)+"",10,getHeight()-80-(i*100));
+		g.drawLine(90+20,getHeight()-80-(i*100),110+20,getHeight()-80-(i*100));
 		}
-		for(int k=0;k<100;k++){
-			g.drawLine(150+k*r+20,1000-60,150+k*r+20,1000-50);
-			g.drawString(""+(k)+"",170+k*r,1000-20);
+		g.setFont(new Font(Font.MONOSPACED,Font.BOLD,15));
+		for(int k=0;k<50;k++){
+			g.drawLine(120+k*30,getHeight()-60,120+k*30,getHeight()-50);
+			g.drawString(""+(k*30)/r+"",120+k*30,getHeight()-30);
 		}
 		//g.drawString(,320-150,71);
+		g.setColor(Color.red);
+		g.drawLine(0,getHeight()-((int)(alturaLinhabase*razao)-(int)(min*razao)+80) , 2000, getHeight()-((int)(alturaLinhabase*razao)-(int)(min*razao)+80));
+		g.drawString(alturaLinhabase+"",40,getHeight()-((int)(alturaLinhabase*razao)-(int)(min*razao)+80)+14);
+		
 	}
 }

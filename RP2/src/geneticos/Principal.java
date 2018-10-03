@@ -5,6 +5,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.JOptionPane;
+
 import itens.Onibus;
 import itens.Pessoa;
 import itens.TemposMedios;
@@ -79,7 +81,11 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 			
 			
 		}
-		new Grafico1(fitMedio);
+		Cromossomo cAux=new Cromossomo(cromossomos[0].conteudo.length);
+		cAux.setRotaPadrao();
+		double daux=f.calculaFitness(cAux, onibusd, passageiros);
+		JOptionPane.showMessageDialog(null, 1/daux);
+		new Grafico1(fitMedio,1/daux);
 		return geracaoAtual;
 	}
 
@@ -88,10 +94,11 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 
 	public static void main(String[] args) {
 		 //TODO Auto-generated method stub
+		
 		testeOnibus();
 		
 //		
-		Cromossomo[]cromossomos= new Cromossomo[200];
+		Cromossomo[]cromossomos= new Cromossomo[2000];
 		for(int i=0;i<cromossomos.length;i++){
 			cromossomos[i]= new Cromossomo(20);
 		}
@@ -182,6 +189,7 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 	}
 	
 	public static ArrayList<Pessoa> todosOsPassageiros() {
+		
 		ArrayList<Pessoa> passageiros = new ArrayList<>();
 		Pessoa p1 = new Pessoa(2, 0, 9);
 		passageiros.add(p1);
