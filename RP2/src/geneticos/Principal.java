@@ -7,14 +7,13 @@ import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
-import itens.Onibus;
+import itens.OnibusUtilizacao;
 import itens.Pessoa;
 import itens.TemposMedios;
 
 public class Principal {
 	
-static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,boolean[] alfabeto,
-		ArrayList<Onibus> onibusd,ArrayList<Pessoa> passageiros){
+static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,boolean[] alfabeto){
 	
 		Fitness f=  new Fitness();
 		//temos que ter uma populaçã aleatoria;
@@ -30,7 +29,7 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 			
 			double totalFitness=0;
 			for(int aux=0; aux<fitness.length;aux++){
-				double tempFit = f.calculaFitness(geracaoAtual[aux],onibusd, passageiros);
+				double tempFit = f.calculaFitness(geracaoAtual[aux]);
 				fitness[aux]=tempFit;
 				totalFitness+=1/tempFit;///FUNCAO DE MEDIR O FITNESS DO CROMOSSOMO
 			}
@@ -83,7 +82,7 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 		}
 		Cromossomo cAux=new Cromossomo(cromossomos[0].conteudo.length);
 		cAux.setRotaPadrao();
-		double daux=f.calculaFitness(cAux, onibusd, passageiros);
+		double daux=f.calculaFitness(cAux);
 		JOptionPane.showMessageDialog(null, 1/daux);
 		new Grafico1(fitMedio,1/daux);
 		return geracaoAtual;
@@ -109,7 +108,7 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Cromossomo[] geracao = VidaCruel(cromossomos, 1000, 3, alfabeto,todosOnibus(5),todosOsPassageiros());
+		Cromossomo[] geracao = VidaCruel(cromossomos, 1000, 3, alfabeto);
 		
 		for(Cromossomo b:geracao) {
 			System.out.println(Arrays.toString(b.getConteudo()));
@@ -149,7 +148,7 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 		
 		tm.setTempoTrajetoEntrePontos(temposTrajetos);
 		
-		ArrayList<Onibus> oni = todosOnibus(nOnibus);
+		ArrayList<OnibusUtilizacao> oni = todosOnibus(nOnibus);
 		ArrayList<Pessoa> pass = todosOsPassageiros();
 		Fitness f = new Fitness();
 //		System.out.println(pass.size());
@@ -161,7 +160,7 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 //		}
 //		
 		long tempoInicial = System.currentTimeMillis();
-		double t = f.calculaFitness(cromossomo, oni, pass);
+		double t = f.calculaFitness(cromossomo);
 		long tempoFinal = System.currentTimeMillis();
 		System.out.println(tempoFinal - tempoInicial);
 		System.out.println(t);
@@ -170,7 +169,7 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 //			System.out.println(p.getDestino() + " "+p.getPartida()+ " "+p.getHorarioChegada()+" "+p.getInicioEspera());
 //		}
 		tempoInicial = System.currentTimeMillis();
-		t = f.calculaFitness(cromossomo, oni, pass);
+		t = f.calculaFitness(cromossomo);
 		tempoFinal = System.currentTimeMillis();
 		System.out.println(tempoFinal - tempoInicial);
 		System.out.println(t);
@@ -178,10 +177,10 @@ static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mu
 	}
 	
 
-	public static ArrayList<Onibus> todosOnibus (int nOnibus){
-		ArrayList<Onibus> onibusd= new ArrayList<>();
+	public static ArrayList<OnibusUtilizacao> todosOnibus (int nOnibus){
+		ArrayList<OnibusUtilizacao> onibusd= new ArrayList<>();
 		for(int i = 0; i<nOnibus;i++) {
-			Onibus novo = new Onibus();
+			OnibusUtilizacao novo = new OnibusUtilizacao();
 			novo.setId(i);
 			onibusd.add(novo);
 		}

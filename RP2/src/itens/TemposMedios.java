@@ -3,13 +3,34 @@ package itens;
 public class TemposMedios {
 	private double tempoParada[]; // Tempo medio de parada em cada ponto
 	private double tempoOnibus[]; // Tempo que o onibus inicia na linha
-	private double tempoTrajetoSemParadas[]; // Tempo que o onibus levaria sem parar nenhuma vez
 	private double tempoTrajetoEntrePontos[][]; // Tempo entre os pontos
 	
 	private static TemposMedios instance = new TemposMedios();
-	private TemposMedios() {}
+	private TemposMedios() {
+		tempoParada = getTemposParadasArquivo();
+		tempoOnibus = getTemposDosOnibus();
+		tempoTrajetoEntrePontos = getTemposEntrePontos();
+	}
 	
 	
+	private double[][] getTemposEntrePontos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private double[] getTemposDosOnibus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private double[] getTemposParadasArquivo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	public double getEstimativaTempoTrajetoEntrePontos(int paradaAtual, double tempoCorrente) {
 		double tempoExperado = 0.0;
 		return tempoCorrente;
@@ -42,14 +63,6 @@ public class TemposMedios {
 		tempoOnibus = new double[tamanho];
 	}
 	
-
-	public double[] getTempoTrajetoSemParadas() {
-		return tempoTrajetoSemParadas;
-	}
-
-	public void setTempoTrajetoSemParadas(double[] tempoTrajetoSemParadas) {
-		this.tempoTrajetoSemParadas = tempoTrajetoSemParadas;
-	}
 
 	public void atribuiValorOnibus(int indice, double valor) {
 		tempoOnibus[indice] = valor;

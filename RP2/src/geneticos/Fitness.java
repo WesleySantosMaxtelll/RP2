@@ -3,7 +3,7 @@ package geneticos;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import itens.Onibus;
+import itens.OnibusUtilizacao;
 import itens.Pessoa;
 import itens.TemposMedios;
 import teste.GeradorTeste;
@@ -15,14 +15,12 @@ public class Fitness {
 	private TemposMedios tm = TemposMedios.getInstance();
 	private int qtdPonto = tm.getTempoParada().length;
 	private ArrayList<Pessoa> passageiros = teste.getPassageiros();
-	private ArrayList<Onibus> onibus = teste.getOnibus();
+	private ArrayList<OnibusUtilizacao> onibus = teste.getOnibus();
 	private int onibusRodando = 0;
 	private boolean printa = false;
 	
-	public double calculaFitness(Cromossomo cal, ArrayList<Onibus> onibu, ArrayList<Pessoa> pass) {
-		onibus = onibu;
+	public double calculaFitness(Cromossomo cal) {
 		cromossomo = cal;
-		passageiros = pass;
 		double tempoCorrente = 0.0;
 		onibusRodando = onibus.size();
 		if(printa)System.out.println(onibusRodando);
@@ -49,7 +47,7 @@ public class Fitness {
 //			System.out.println(c.getPartida() + " " +c.getDestino() + " " +temp);
 		}
 		
-		for(Onibus c:onibus) {
+		for(OnibusUtilizacao c:onibus) {
 			c.restart();
 		}
 		if(printa)System.out.println(f);
@@ -74,7 +72,7 @@ public class Fitness {
 
 	private void atualizaOnibus(int i, double tempoCorrente) {
 		// TODO Auto-generated method stub
-		Onibus o = onibus.get(i); 
+		OnibusUtilizacao o = onibus.get(i); 
 		if(tm.getTempoOnibus()[i] > tempoCorrente || o.terminou()) return; // o onibus ainda nao esta rodando
 		
 		if(o.isParadoNoPonto()) { // se o onibus esta parado no ponto

@@ -2,13 +2,13 @@ package teste;
 
 import java.util.ArrayList;
 
-import itens.Onibus;
+import itens.OnibusUtilizacao;
 import itens.Pessoa;
 import itens.TemposMedios;
 
 public class GeradorTeste {
 	private ArrayList<Pessoa> passageiros = new ArrayList<>();
-	private ArrayList<Onibus> onibus = new ArrayList<>();
+	private ArrayList<OnibusUtilizacao> onibus = new ArrayList<>();
 	private final double totalTime = 50000;
 	private int qtdPontos = 0;
 	// Tempo total de um dia é 50000 unidades
@@ -29,7 +29,7 @@ public class GeradorTeste {
 		return passageiros;
 	}
 	
-	public ArrayList<Onibus> getOnibus() {
+	public ArrayList<OnibusUtilizacao> getOnibus() {
 		return onibus;
 	}
 	
@@ -39,7 +39,7 @@ public class GeradorTeste {
 		int id = 0;
 		TemposMedios.getInstance().crieArrayOnibus(qtd);
 		for(int i = 0; i <qtd; i++) {
-			Onibus novo = new Onibus();
+			OnibusUtilizacao novo = new OnibusUtilizacao();
 			novo.setId(id);
 			novo.setCapacidade(60);
 			TemposMedios.getInstance().atribuiValorOnibus(id++, (float)tempo);

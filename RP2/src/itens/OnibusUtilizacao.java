@@ -3,7 +3,7 @@ package itens;
 import java.util.ArrayList;
 import itens.Pessoa;
 
-public class Onibus {
+public class OnibusUtilizacao {
 	
 	private int id; // Associado a uma coluna da matriz do cromossomo
 	private double tempoUltimaParada=0;// em qual tempo o onibus esta, para descobrir se ele esta chegando na proxima parada

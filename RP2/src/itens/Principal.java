@@ -21,7 +21,7 @@ public class Principal {
 		
 		
 		
-		Onibus o = new Onibus();
+		OnibusUtilizacao o = new OnibusUtilizacao();
 		Pessoa p = new Pessoa(1, 1, 1.0);
 		o.getPassageiros().add(p);
 		
