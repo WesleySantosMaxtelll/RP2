@@ -37,7 +37,7 @@ public class OperadorGenetico {
 		return resultante;
 	}
 	
-static Cromossomo Crossover2(Cromossomo original1,Cromossomo original2){
+	static Cromossomo Crossover2(Cromossomo original1,Cromossomo original2){
 		
 		int quantidadeGenes=original1.conteudo.length;//quantidade de Genes que tem um Cromossomo;
 	

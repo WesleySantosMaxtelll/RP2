@@ -1,11 +1,15 @@
 package geneticos;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+
+import api_interface.Onibus;
 
 public class Cromossomo {
 	
 	boolean[]conteudo;
-	
+	public Cromossomo(boolean[]conteudo) {
+		this.conteudo = conteudo;
+	}
 	public Cromossomo(int qGenes){
 		conteudo=new boolean[qGenes];
 		for(int i = 0; i<qGenes;i++) {
@@ -18,6 +22,21 @@ public class Cromossomo {
 		
 	}
 	
+	public Cromossomo(int quantidadePontos, ArrayList<Onibus> onibus) {
+		conteudo=new boolean[quantidadePontos*onibus.size()];
+		for(int i = 0; i<onibus.size();i++) {
+			for (int j = 0; j <quantidadePontos; j++) {
+				if(onibus.get(i).isFixo()) {
+					conteudo[i*quantidadePontos+j] = true;
+				} else {
+					if(Math.random() < 0.5) 
+						conteudo[i*quantidadePontos+j] = false;
+					else
+						conteudo[i*quantidadePontos+j] = false;
+				}
+			}
+		}
+	}
 	public void setRotaPadrao(){
 		for(int i=0;i<conteudo.length;i++){
 			conteudo[i]=true;

@@ -3,21 +3,20 @@ package geneticos;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import api_interface.TemposMedios;
 import itens.OnibusUtilizacao;
 import itens.Pessoa;
-import itens.TemposMedios;
-import teste.GeradorTeste;
 
 
 public class Fitness {
 	private Cromossomo cromossomo;
-	GeradorTeste teste = new GeradorTeste();
-	private TemposMedios tm = TemposMedios.getInstance();
-	private int qtdPonto = tm.getTempoParada().length;
-	private ArrayList<Pessoa> passageiros = teste.getPassageiros();
-	private ArrayList<OnibusUtilizacao> onibus = teste.getOnibus();
+	BaseInfo baseinfo = BaseInfo.getInstance();
+	private TemposMedios tm = baseinfo.getTm();
+	private int qtdPonto = baseinfo.getQtdPonto();
+	private ArrayList<Pessoa> passageiros = baseinfo.getPassageiros();
+	private ArrayList<OnibusUtilizacao> onibus = baseinfo.getOnibus();
 	private int onibusRodando = 0;
-	private boolean printa = false;
+	private boolean printa = true;
 	
 	public double calculaFitness(Cromossomo cal) {
 		cromossomo = cal;
@@ -30,7 +29,6 @@ public class Fitness {
 				if(printa)System.out.println("Atualização para o tempo " + tempoCorrente+ " e para o onibus "+i);
 				atualizaOnibus(i, tempoCorrente); // Atualiza a posicao dos onibus pelo tempo corrente
 				if(onibus.get(i).isParadoNoPonto()) {
-
 					descem(tempoCorrente, i);
 					sobem(tempoCorrente, i);
 				}
@@ -50,6 +48,7 @@ public class Fitness {
 		for(OnibusUtilizacao c:onibus) {
 			c.restart();
 		}
+		
 		if(printa)System.out.println(f);
 		return 1/f;
 	}
@@ -73,14 +72,14 @@ public class Fitness {
 	private void atualizaOnibus(int i, double tempoCorrente) {
 		// TODO Auto-generated method stub
 		OnibusUtilizacao o = onibus.get(i); 
-		if(tm.getTempoOnibus()[i] > tempoCorrente || o.terminou()) return; // o onibus ainda nao esta rodando
+		if(baseinfo.getTempoOnibus()[i] > tempoCorrente || o.terminou()) return; // o onibus ainda nao esta rodando
 		
 		if(o.isParadoNoPonto()) { // se o onibus esta parado no ponto
 			if(o.deveSair()) {
 				if(printa)System.out.println("Onibus sai do ponto "+ o.getParada());
 				o.setParadoNoPonto(false);
 				if(o.getParada() < qtdPonto-1) {
-					o.setTempoProxParada(tm.getTempoTrajetoEntrePontos()[o.getParada()][i]);
+					o.setTempoProxParada(tm.tempoEntrePontos(o.getParada(), i, tempoCorrente));
 					o.setProxParada();
 				} else {
 					o.setTerminou();
@@ -94,11 +93,11 @@ public class Fitness {
 				if(printa)System.out.println("Onibus chegou no ponto "+ o.getParada());
 				if(cromossomo.getConteudo()[i*qtdPonto+o.getParada()]) {
 					o.setParadoNoPonto(true);
-					o.setTempoParadoNoPronto(tm.getTempoParada()[o.getParada()]);
+					o.setTempoParadoNoPronto(tm.tempoParadoNoPonto(o.getParada(), i, tempoCorrente, o.getPassageiros().size()));
 				} else {
 					if(printa)System.out.println("Onibus nao para nesse ponto");
 					if(o.getParada() < qtdPonto-1) {
-						o.setTempoProxParada(tm.getTempoTrajetoEntrePontos()[o.getParada()][i]);
+						o.setTempoProxParada(tm.tempoEntrePontos(o.getParada(), i, tempoCorrente));
 						o.setProxParada();
 					} else {
 						o.setTerminou();
