@@ -24,6 +24,7 @@ public class Otibus {
 //		boolean[] fixos = defineTrajetosconstantes(onibus);
 //		ArrayList<PassageiroResposta> prBaseline = new ArrayList<PassageiroResposta>();
 //		ArrayList<PassageiroResposta> prUltimaGeracao = new ArrayList<PassageiroResposta>();
+		Resposta resposta = new Resposta();
 		ArrayList<OnibusUtilizacao> oni = defineOnibus(onibus);
 		ArrayList<Pessoa> pass = definePassageiros(passageiros);
 		BaseInfo base = BaseInfo.getInstance();
@@ -32,13 +33,25 @@ public class Otibus {
 		base.setTm(temposMedios);
 		base.setQtdPonto(quantidadePontos);
 		atualizeTempoOnibus(onibus, base);
+		base.definePermitidos(onibus, quantidadePontos);
+//		System.out.println(base.getMutaveis().length);
+		
+//		for(int z = 0; z < base.getMutaveis().length; z++)
+//			System.out.println(base.getMutaveis()[z]);
+//		
+		resposta.setFitnessBaseline(calculeBaseline(quantidadePontos,onibus.size()));
+//		System.out.println(calculeBaseline(quantidadePontos,onibus.size()));
+//		System.out.println(calculeBaseline(quantidadePontos,onibus.size()));
+//		System.out.println(calculeBaseline(quantidadePontos,onibus.size()));
+//		System.out.println(calculeBaseline(quantidadePontos,onibus.size()));
+//		System.out.println(resposta.getFitnessBaseline());
 		Cromossomo[]cromossomos = definePrimeiraGeracao(quantidadePontos, onibus);
 //		rodaTeste();
-		run(cromossomos);
+		run(cromossomos, resposta, numeroGeracoes);
 //		for (OnibusUtilizacao o:oni) {
 //			System.out.println(o.getCapacidade());
 //		}
-		return null;
+		return resposta;
 	}
 	
 	private void rodaTeste() {
@@ -55,23 +68,23 @@ public class Otibus {
 		System.out.println(f.calculaFitness(c));
 	}
 	
-	private void run(Cromossomo[]cromossomos) {
+	private void run(Cromossomo[]cromossomos, Resposta resposta, int geracoes) {
 		boolean[]alfabeto={true,false};
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(20);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Cromossomo[] geracao = Principal.VidaCruel(cromossomos, 10, 3, alfabeto);
-		
+		Cromossomo[] geracao = Principal.VidaCruel(cromossomos, geracoes, 3, alfabeto, resposta);
+		resposta.setUltimaGeracao(geracao);
 		for(Cromossomo b:geracao) {
 			System.out.println(Arrays.toString(b.getConteudo()));
 		}
 	}
 	
 	private Cromossomo[] definePrimeiraGeracao(int quantidadePontos, ArrayList<Onibus> onibus) {
-		Cromossomo[]cromossomos= new Cromossomo[10];
+		Cromossomo[]cromossomos= new Cromossomo[300];
 		for(int i=0;i<cromossomos.length;i++){
 			cromossomos[i]= new Cromossomo(quantidadePontos,onibus);
 		}
@@ -115,9 +128,9 @@ public class Otibus {
 		return pass;
 	}
 	
-	private double calculeBaseline(int quantidadePontos, ArrayList<Onibus> onibus, ArrayList<PassageiroResposta> pass) {
+	private double calculeBaseline(int quantidadePontos, int onibus) {
 		Fitness f = new Fitness();
-		boolean[] baselineTeste = new boolean[quantidadePontos*onibus.size()];
+		boolean[] baselineTeste = new boolean[quantidadePontos*onibus];
 		Cromossomo c = new Cromossomo(baselineTeste);
 		Arrays.fill(baselineTeste, Boolean.TRUE);
 		return f.calculaFitness(c);

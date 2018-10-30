@@ -5,20 +5,24 @@ import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
+import api_interface.Resposta;
 import itens.OnibusUtilizacao;
 import itens.Pessoa;
 import itens.TemposMedios;
 
 public class Principal {
 	
-public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,boolean[] alfabeto){
-	
+public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,boolean[] alfabeto, Resposta resposta){
+		
 		Fitness f=  new Fitness();
 		//temos que ter uma populaçã aleatoria;
 		ArrayList<Double>fitMedio=new ArrayList<>();
 		
 		double fitness[]=new double[cromossomos.length];// para armazenar os fitness;
 		Cromossomo[]geracaoAtual=cromossomos;
+		Cromossomo cAux=new Cromossomo(cromossomos[0].conteudo.length);
+		cAux.setRotaPadrao();
+		double daux=f.calculaFitness(cAux);
 		
 		for(int geracao=0;geracao<Maxgeracoes;geracao++){
 			// para cada uma das geracoes 
@@ -39,7 +43,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			
 			Cromossomo[] novaGeracao=new Cromossomo[cromossomos.length];
 			
-			double[]probabilidade ={1,(3/(geracao+1)),1};//chances de cada operação genetica
+			double[]probabilidade ={1,(120/(geracao+1)),1};//chances de cada operação genetica
 			Roleta roletaOperacao = new Roleta(probabilidade);// roleta pra escolher a operação;
 			
 			for(int i=0;i<cromossomos.length;i++){
@@ -78,9 +82,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			
 			
 		}
-		Cromossomo cAux=new Cromossomo(cromossomos[0].conteudo.length);
-		cAux.setRotaPadrao();
-		double daux=f.calculaFitness(cAux);
+		resposta.setFitnessPorGeracao(fitMedio);
 		JOptionPane.showMessageDialog(null, 1/daux);
 		new Grafico1(fitMedio,1/daux);
 		return geracaoAtual;
@@ -88,37 +90,37 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 
 
 
-
-	public static void main(String[] args) {
-		 //TODO Auto-generated method stub
-		
-		testeOnibus();
-		
+//
+//	public static void main(String[] args) {
+//		 //TODO Auto-generated method stub
 //		
-		Cromossomo[]cromossomos= new Cromossomo[10];
-		for(int i=0;i<cromossomos.length;i++){
-			cromossomos[i]= new Cromossomo(20);
-		}
-		boolean[]alfabeto={true,false};
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Cromossomo[] geracao = VidaCruel(cromossomos, 2, 3, alfabeto);
-		
-		for(Cromossomo b:geracao) {
-			System.out.println(Arrays.toString(b.getConteudo()));
-		}
-	}
-	
-	public static void testeOnibus() {
-		int nOnibus = 5;
-		int nPontos = 4;
-		double tempoOnibus[] = {10, 15, 71, 80, 100};
-		double tempoParadas[] = {3, 2, 4, 2};
+//		testeOnibus();
 //		
+////		
+//		Cromossomo[]cromossomos= new Cromossomo[10];
+//		for(int i=0;i<cromossomos.length;i++){
+//			cromossomos[i]= new Cromossomo(20);
+//		}
+//		boolean[]alfabeto={true,false};
+//		try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		Cromossomo[] geracao = VidaCruel(cromossomos, 2, 3, alfabeto);
+//		
+//		for(Cromossomo b:geracao) {
+//			System.out.println(Arrays.toString(b.getConteudo()));
+//		}
+//	}
+//	
+//	public static void testeOnibus() {
+//		int nOnibus = 5;
+//		int nPontos = 4;
+//		double tempoOnibus[] = {10, 15, 71, 80, 100};
+//		double tempoParadas[] = {3, 2, 4, 2};
+////		
 //		TemposMedios tm = TemposMedios.getInstance();
 //		tm.setTempoOnibus(tempoOnibus);
 //		tm.setTempoParada(tempoParadas);
@@ -168,33 +170,33 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 //		System.out.println(tempoFinal - tempoInicial);
 //		System.out.println(t);
 //	
-	}
+//	}
 	
 
-	public static ArrayList<OnibusUtilizacao> todosOnibus (int nOnibus){
-		ArrayList<OnibusUtilizacao> onibusd= new ArrayList<>();
-		for(int i = 0; i<nOnibus;i++) {
-			OnibusUtilizacao novo = new OnibusUtilizacao();
-			novo.setId(i);
-			onibusd.add(novo);
-		}
-		return onibusd;
-	}
-	
-	public static ArrayList<Pessoa> todosOsPassageiros() {
-		
-		ArrayList<Pessoa> passageiros = new ArrayList<>();
-		Pessoa p1 = new Pessoa(2, 0, 9);
-		passageiros.add(p1);
-		Pessoa p2 = new Pessoa(3, 0, 78);
-		passageiros.add(p2);
-		Pessoa p3 = new Pessoa(3, 1, 35);
-		passageiros.add(p3);
-		Pessoa p4 = new Pessoa(3, 2, 81);
-		passageiros.add(p4);
-		Pessoa p5 = new Pessoa(3, 2, 40);
-		passageiros.add(p5);
-		return passageiros;
-	}
+//	public static ArrayList<OnibusUtilizacao> todosOnibus (int nOnibus){
+//		ArrayList<OnibusUtilizacao> onibusd= new ArrayList<>();
+//		for(int i = 0; i<nOnibus;i++) {
+//			OnibusUtilizacao novo = new OnibusUtilizacao();
+//			novo.setId(i);
+//			onibusd.add(novo);
+//		}
+//		return onibusd;
+//	}
+//	
+//	public static ArrayList<Pessoa> todosOsPassageiros() {
+//		
+//		ArrayList<Pessoa> passageiros = new ArrayList<>();
+//		Pessoa p1 = new Pessoa(2, 0, 9);
+//		passageiros.add(p1);
+//		Pessoa p2 = new Pessoa(3, 0, 78);
+//		passageiros.add(p2);
+//		Pessoa p3 = new Pessoa(3, 1, 35);
+//		passageiros.add(p3);
+//		Pessoa p4 = new Pessoa(3, 2, 81);
+//		passageiros.add(p4);
+//		Pessoa p5 = new Pessoa(3, 2, 40);
+//		passageiros.add(p5);
+//		return passageiros;
+//	}
 	
 }

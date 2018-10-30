@@ -13,7 +13,7 @@ public class Cromossomo {
 	public Cromossomo(int qGenes){
 		conteudo=new boolean[qGenes];
 		for(int i = 0; i<qGenes;i++) {
-			if(Math.random() < 0.5) 
+			if(Math.random() < 0.3) 
 				conteudo[i] = false;
 			else
 				conteudo[i] = true;
@@ -29,10 +29,10 @@ public class Cromossomo {
 				if(onibus.get(i).isFixo()) {
 					conteudo[i*quantidadePontos+j] = true;
 				} else {
-					if(Math.random() < 0.5) 
+					if(Math.random() < 0.4) 
 						conteudo[i*quantidadePontos+j] = false;
 					else
-						conteudo[i*quantidadePontos+j] = false;
+						conteudo[i*quantidadePontos+j] = true;
 				}
 			}
 		}

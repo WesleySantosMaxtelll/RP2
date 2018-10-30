@@ -12,6 +12,7 @@ public class OnibusUtilizacao {
 	private int parada=0;// registra a proxima parada que o onibus estava;
 	private int capacidade=2; // numero maximo de passageiros
 	private boolean paradoNoPonto = false;
+	private int capbackup;
 	private boolean operacao = false;
 	private ArrayList<Pessoa> passageiros = new ArrayList<>();
 	
@@ -79,6 +80,7 @@ public class OnibusUtilizacao {
 	}
 
 	public void setCapacidade(int capacidade) {
+		capbackup = capacidade;
 		this.capacidade = capacidade;
 	}
 
@@ -122,7 +124,7 @@ public class OnibusUtilizacao {
 		tempoProxParada=0;// em qual tempo o onibus esta, para descobrir se ele esta chegando na proxima parada
 		tempoParadoNoPronto=0;// em qual tempo o onibus esta, para descobrir se ele esta chegando na proxima parada
 		parada=0;// registra a proxima parada que o onibus estava;
-		capacidade=2; // numero maximo de passageiros
+		capacidade=capbackup; // numero maximo de passageiros
 		paradoNoPonto = false;
 		operacao = true;
 	}

@@ -5,8 +5,17 @@ public class Pessoa {
 	private int destino = 0;
 	private int partida = 0;
 	private double inicioEspera = 0;// em que tempo(horario a pessoa chegou ao ponto)
-	private double horarioChegada = 120;
+	private double horarioChegada = Short.MAX_VALUE;
 	private int onibus = -1;
+	public int getOnibus() {
+		return onibus;
+	}
+
+	public void setOnibus(int onibus) {
+		this.onibus = onibus;
+	}
+
+	private int esperando = 0;
 	
 	public Pessoa(int destino, int partida, double inicioEspera) {
 		super();
@@ -16,16 +25,17 @@ public class Pessoa {
 	}
 	
 	public void sobeNoOnibus(int i) {
+		esperando = -1;
 		onibus = i;
 	}
 	
 	public void desceDoOnibus() {
-		onibus = -2;
+		esperando= -2;
 	}
 	
 	public boolean estaEsperando() {
-		if (onibus == -1) return true;
-		return false;
+		 if(esperando ==0) return true;
+		 return false;
 	}
 	
 	public boolean estaNesteOnibus(int i) {
@@ -59,8 +69,9 @@ public class Pessoa {
 	}
 
 	public void restart() {
-		horarioChegada =120;
+		horarioChegada =Short.MAX_VALUE;
 		onibus = -1;
+		esperando = 0;
 	}
 	
 	

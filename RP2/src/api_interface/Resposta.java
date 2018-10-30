@@ -1,13 +1,14 @@
 package api_interface;
 
+import java.util.ArrayList;
+
 import geneticos.Cromossomo;
 
 public class Resposta {
 	private Cromossomo[] ultimaGeracao;
 	private double fitnessBaseline;
-	private double[] fitnessPorGeracao;
-	private PassageiroResposta[] passsageirosDados;
-	private PassageiroResposta[] passsageirosDadosBaseline;
+	private ArrayList<Double> fitnessPorGeracao;
+	
 	
 	public Cromossomo[] getUltimaGeracao() {
 		return ultimaGeracao;
@@ -21,26 +22,12 @@ public class Resposta {
 	public void setFitnessBaseline(double fitnessBaseline) {
 		this.fitnessBaseline = fitnessBaseline;
 	}
-	public double[] getFitnessPorGeracao() {
+	public ArrayList<Double> getFitnessPorGeracao() {
 		return fitnessPorGeracao;
 	}
-	public void setFitnessPorGeracao(double[] fitnessPorGeracao) {
+	public void setFitnessPorGeracao(ArrayList<Double> fitnessPorGeracao) {
 		this.fitnessPorGeracao = fitnessPorGeracao;
 	}
-
-	public PassageiroResposta[] getPasssageirosDadosBaseline() {
-		return passsageirosDadosBaseline;
-	}
-	public void setPasssageirosDadosBaseline(PassageiroResposta[] passsageirosDadosBaseline) {
-		this.passsageirosDadosBaseline = passsageirosDadosBaseline;
-	}
-	public PassageiroResposta[] getPasssageirosDados() {
-		return passsageirosDados;
-	}
-	public void setPasssageirosDados(PassageiroResposta[] passsageirosDados) {
-		this.passsageirosDados = passsageirosDados;
-	}
-	
 }
 
 

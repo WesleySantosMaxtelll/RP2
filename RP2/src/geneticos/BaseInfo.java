@@ -1,7 +1,9 @@
 package geneticos;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import api_interface.Onibus;
 import api_interface.TemposMedios;
 import itens.OnibusUtilizacao;
 import itens.Pessoa;
@@ -19,8 +21,26 @@ public class BaseInfo {
 	private ArrayList<Pessoa> passageiros;
 	private ArrayList<OnibusUtilizacao> onibus;
 	private double tempoOnibus[];
+	private Integer[] mutaveis;
 	
+	public void definePermitidos(ArrayList<Onibus> onibus, int qtdPontos) {
+		ArrayList<Integer> a = new ArrayList<>();
+		for(Onibus o:onibus) {
+			if(!o.isFixo()) {
+				for(int i = onibus.indexOf(o)*qtdPontos; i < (1+onibus.indexOf(o))*qtdPontos;i++) {
+					a.add(i);
+				}
+			}
+		}
+		mutaveis = new Integer[a.size()];
+		mutaveis = a.toArray(mutaveis);
+		
+	}
 	
+	public Integer[] getMutaveis() {
+		return mutaveis;
+	}
+
 	public double[] getTempoOnibus() {
 		return tempoOnibus;
 	}

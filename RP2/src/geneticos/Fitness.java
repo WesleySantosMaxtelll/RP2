@@ -16,7 +16,7 @@ public class Fitness {
 	private ArrayList<Pessoa> passageiros = baseinfo.getPassageiros();
 	private ArrayList<OnibusUtilizacao> onibus = baseinfo.getOnibus();
 	private int onibusRodando = 0;
-	private boolean printa = true;
+	private boolean printa = false;
 	
 	public double calculaFitness(Cromossomo cal) {
 		cromossomo = cal;
@@ -37,20 +37,29 @@ public class Fitness {
 			tempoCorrente+=1.0;
 		}
 		double f = 0.0;
+		int total = passageiros.size();
+		int sucesso = 0;
 		for(Pessoa c:passageiros) {
+			if (c.getHorarioChegada() == Short.MAX_VALUE)
+				c.setHorarioChegada(tempoCorrente*1.5);
+			else
+				sucesso +=1;
 			f+=c.getHorarioChegada()-c.getInicioEspera();
 			double temp = c.getHorarioChegada()-c.getInicioEspera();
+			if(printa) System.out.println(c.getPartida() + " " +c.getDestino() + " " +c.getOnibus() + " " +temp);
 			c.restart();
 //			System.out.println(f);
-//			System.out.println(c.getPartida() + " " +c.getDestino() + " " +temp);
 		}
+		
 		
 		for(OnibusUtilizacao c:onibus) {
 			c.restart();
 		}
 		
+		
 		if(printa)System.out.println(f);
-		return 1/f;
+		return 1/(f/sucesso);
+//		return 1/((f/total)/(sucesso/total));
 	}
 
 	private void descem(double tempoCorrente, int i) {
@@ -126,6 +135,7 @@ public class Fitness {
 						if(printa)System.out.println("Passageiro vai descer no "
 					+p.getDestino());
 						onibus.get(onibusIndice).getPassageiros().add(p);
+//						System.out.println(onibusIndice + " aquiiiiiiiiiii" + passageiros.indexOf(p));
 						p.sobeNoOnibus(onibusIndice);
 					}
 
