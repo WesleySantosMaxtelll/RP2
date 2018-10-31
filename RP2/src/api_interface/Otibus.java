@@ -65,7 +65,7 @@ public class Otibus {
 		
 		Cromossomo c = new Cromossomo(b);
 		Fitness f = new Fitness();
-		System.out.println(f.calculaFitness(c));
+		System.out.println(f.calculaFitness(c, null));
 	}
 	
 	private void run(Cromossomo[]cromossomos, Resposta resposta, int geracoes) {
@@ -77,14 +77,11 @@ public class Otibus {
 			e.printStackTrace();
 		}
 		Cromossomo[] geracao = Principal.VidaCruel(cromossomos, geracoes, 3, alfabeto, resposta);
-		resposta.setUltimaGeracao(geracao);
-		for(Cromossomo b:geracao) {
-			System.out.println(Arrays.toString(b.getConteudo()));
-		}
+		
 	}
 	
 	private Cromossomo[] definePrimeiraGeracao(int quantidadePontos, ArrayList<Onibus> onibus) {
-		Cromossomo[]cromossomos= new Cromossomo[300];
+		Cromossomo[]cromossomos= new Cromossomo[10];
 		for(int i=0;i<cromossomos.length;i++){
 			cromossomos[i]= new Cromossomo(quantidadePontos,onibus);
 		}
@@ -133,6 +130,6 @@ public class Otibus {
 		boolean[] baselineTeste = new boolean[quantidadePontos*onibus];
 		Cromossomo c = new Cromossomo(baselineTeste);
 		Arrays.fill(baselineTeste, Boolean.TRUE);
-		return f.calculaFitness(c);
+		return f.calculaFitness(c, null);
 	}
 }

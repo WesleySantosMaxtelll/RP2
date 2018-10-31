@@ -5,15 +5,31 @@ import java.util.ArrayList;
 import geneticos.Cromossomo;
 
 public class Resposta {
-	private Cromossomo[] ultimaGeracao;
+	private Cromossomo ultimaGeracao;
 	private double fitnessBaseline;
 	private ArrayList<Double> fitnessPorGeracao;
 	
+	private ArrayList<PassageiroResposta> baseline;
+	private ArrayList<PassageiroResposta> melhorGeracao;
 	
-	public Cromossomo[] getUltimaGeracao() {
+	
+	
+	public ArrayList<PassageiroResposta> getBaseline() {
+		return baseline;
+	}
+	public void setBaseline(ArrayList<PassageiroResposta> baseline) {
+		this.baseline = baseline;
+	}
+	public ArrayList<PassageiroResposta> getMelhorGeracao() {
+		return melhorGeracao;
+	}
+	public void setMelhorGeracao(ArrayList<PassageiroResposta> melhorGeracao) {
+		this.melhorGeracao = melhorGeracao;
+	}
+	public Cromossomo getUltimaGeracao() {
 		return ultimaGeracao;
 	}
-	public void setUltimaGeracao(Cromossomo[] ultimaGeracao) {
+	public void setUltimaGeracao(Cromossomo ultimaGeracao) {
 		this.ultimaGeracao = ultimaGeracao;
 	}
 	public double getFitnessBaseline() {
@@ -30,21 +46,3 @@ public class Resposta {
 	}
 }
 
-
-class PassageiroResposta {
-	private double horarioTermino = Short.MAX_VALUE;
-	private int onibusId = -1;
-	public double getHorarioTermino() {
-		return horarioTermino;
-	}
-	public void setHorarioTermino(double horarioTermino) {
-		this.horarioTermino = horarioTermino;
-	}
-	public int getOnibusId() {
-		return onibusId;
-	}
-	public void setOnibusId(int onibusId) {
-		this.onibusId = onibusId;
-	}
-	
-}

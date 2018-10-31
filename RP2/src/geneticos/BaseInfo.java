@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import api_interface.Onibus;
+import api_interface.PassageiroResposta;
 import api_interface.TemposMedios;
 import itens.OnibusUtilizacao;
 import itens.Pessoa;
@@ -16,6 +17,8 @@ public class BaseInfo {
 		return instance;
 	}
 	
+	private Cromossomo melhorAteAgora;
+	private double melhorFitness;
 	private TemposMedios tm;
 	private int qtdPonto;
 	private ArrayList<Pessoa> passageiros;
@@ -37,6 +40,32 @@ public class BaseInfo {
 		
 	}
 	
+	
+	public Cromossomo getMelhorAteAgora() {
+		return melhorAteAgora;
+	}
+
+
+	public void setMelhorAteAgora(Cromossomo melhorAteAgora) {
+		this.melhorAteAgora = melhorAteAgora;
+	}
+
+
+	public double getMelhorFitness() {
+		return melhorFitness;
+	}
+
+
+	public void setMelhorFitness(double melhorFitness) {
+		this.melhorFitness = melhorFitness;
+	}
+
+
+	public void setMutaveis(Integer[] mutaveis) {
+		this.mutaveis = mutaveis;
+	}
+
+
 	public Integer[] getMutaveis() {
 		return mutaveis;
 	}

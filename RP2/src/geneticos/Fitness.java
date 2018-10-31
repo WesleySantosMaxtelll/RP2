@@ -3,6 +3,7 @@ package geneticos;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import api_interface.PassageiroResposta;
 import api_interface.TemposMedios;
 import itens.OnibusUtilizacao;
 import itens.Pessoa;
@@ -18,7 +19,7 @@ public class Fitness {
 	private int onibusRodando = 0;
 	private boolean printa = false;
 	
-	public double calculaFitness(Cromossomo cal) {
+	public double calculaFitness(Cromossomo cal, ArrayList<PassageiroResposta> melhorGeracao) {
 		cromossomo = cal;
 		double tempoCorrente = 0.0;
 		onibusRodando = onibus.size();
@@ -40,6 +41,16 @@ public class Fitness {
 		int total = passageiros.size();
 		int sucesso = 0;
 		for(Pessoa c:passageiros) {
+			if(melhorGeracao != null) {
+				PassageiroResposta r = new PassageiroResposta();
+				r.setHorarioTermino(c.getHorarioChegada());
+				r.setInicioEspera(c.getInicioEspera());
+				r.setOnibusId(c.getOnibus());
+				r.setPartida(c.getPartida());
+				r.setDestino(c.getDestino());
+				melhorGeracao.add(r);
+			}
+			
 			if (c.getHorarioChegada() == Short.MAX_VALUE)
 				c.setHorarioChegada(tempoCorrente*1.5);
 			else

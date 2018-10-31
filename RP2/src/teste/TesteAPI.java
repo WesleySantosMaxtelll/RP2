@@ -5,6 +5,7 @@ import java.util.Random;
 
 import api_interface.Onibus;
 import api_interface.Otibus;
+import api_interface.PassageiroResposta;
 import api_interface.Passageiros;
 import api_interface.Resposta;
 import api_interface.TemposMedios;
@@ -14,7 +15,7 @@ public class TesteAPI {
 		
 		ArrayList<Passageiros> passageiros = new ArrayList<>();
 		Random rand = new Random();
-		for(int i = 0; i < 2000; i++) {
+		for(int i = 0; i < 20; i++) {
 			Passageiros p1 = new Passageiros();
 			int origem = 0;
 			if(Math.random() > 0.8)
@@ -92,7 +93,7 @@ public class TesteAPI {
 		ArrayList<Onibus> onibus = todosOnibus(tempoOnibus);
 		
 		int qtdPontos = 16;
-		int nGeracoes = 400;
+		int nGeracoes = 20;
 		
 //		Cromossomo c = new Cromossomo(qtdPontos, onibus);
 //		for(int i = 0; i <c.getConteudo().length; i++)
@@ -102,6 +103,13 @@ public class TesteAPI {
 		Otibus o = new Otibus();
 //		v.mostra();
 		Resposta r = o.start(passageiros, onibus, v, qtdPontos, nGeracoes);
+		for(PassageiroResposta pr:r.getMelhorGeracao()) {
+			System.out.println(pr.getDestino() + " "+pr.getPartida() + " " +pr.getHorarioTermino() + " "+pr.getOnibusId());
+		}
+		
+		for(PassageiroResposta pr:r.getBaseline()) {
+			System.out.println(pr.getDestino() + " "+pr.getPartida() + " " +pr.getHorarioTermino() + " "+pr.getOnibusId());
+		}
 //		System.out.println(r.getFitnessBaseline());
 //		System.out.println(r.getUltimaGeracao()[0]);
 	}
@@ -110,7 +118,7 @@ public class TesteAPI {
 class valores implements TemposMedios{
 //	 {10, 15, 71, 80, 100};
 //	double tempoParadas[] = {3, 2, 4, 2};
-	double tempoParadas[] = {15, 7, 8, 12, 12, 28, 12, 4, 6, 7, 12, 9, 4, 7, 13, 8};
+	double tempoParadas[] = {6, 7, 8, 12, 5, 28, 12, 4, 6, 7, 12, 9, 4, 7, 13, 8};
 //	double [][]temposTrajetos = {	
 //			{3, 7, 1, 3, 2}, 
 //			{2, 4, 2, 4, 2}, 
