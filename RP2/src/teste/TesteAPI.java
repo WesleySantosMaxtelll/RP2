@@ -9,13 +9,14 @@ import api_interface.PassageiroResposta;
 import api_interface.Passageiros;
 import api_interface.Resposta;
 import api_interface.TemposMedios;
+import graficos.GraficoCompPopoli;
 
 public class TesteAPI {
 	public static ArrayList<Passageiros> todosOsPassageiros() throws Exception {
 		
 		ArrayList<Passageiros> passageiros = new ArrayList<>();
 		Random rand = new Random();
-		for(int i = 0; i < 20; i++) {
+		for(int i = 0; i < 1000; i++) {
 			Passageiros p1 = new Passageiros();
 			int origem = 0;
 			if(Math.random() > 0.8)
@@ -93,7 +94,7 @@ public class TesteAPI {
 		ArrayList<Onibus> onibus = todosOnibus(tempoOnibus);
 		
 		int qtdPontos = 16;
-		int nGeracoes = 20;
+		int nGeracoes = 30;
 		
 //		Cromossomo c = new Cromossomo(qtdPontos, onibus);
 //		for(int i = 0; i <c.getConteudo().length; i++)
@@ -110,6 +111,7 @@ public class TesteAPI {
 		for(PassageiroResposta pr:r.getBaseline()) {
 			System.out.println(pr.getDestino() + " "+pr.getPartida() + " " +pr.getHorarioTermino() + " "+pr.getOnibusId());
 		}
+		new GraficoCompPopoli(r.getBaseline(), r.getMelhorGeracao());
 //		System.out.println(r.getFitnessBaseline());
 //		System.out.println(r.getUltimaGeracao()[0]);
 	}

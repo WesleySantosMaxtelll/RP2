@@ -46,7 +46,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			
 			Cromossomo[] novaGeracao=new Cromossomo[cromossomos.length];
 			
-			double[]probabilidade ={1,(200/(geracao+1)),1};//chances de cada operação genetica
+			double[]probabilidade ={1,(100/(geracao*0.4+1)),1};//chances de cada operação genetica
 			Roleta roletaOperacao = new Roleta(probabilidade);// roleta pra escolher a operação;
 			
 			for(int i=0;i<cromossomos.length;i++){
