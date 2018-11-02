@@ -2,6 +2,9 @@ package geneticos;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 import api_interface.Onibus;
 import api_interface.PassageiroResposta;
@@ -21,8 +24,10 @@ public class BaseInfo {
 	private double melhorFitness;
 	private TemposMedios tm;
 	private int qtdPonto;
-	private ArrayList<Pessoa> passageiros;
-	private ArrayList<OnibusUtilizacao> onibus;
+	private ArrayList<Pessoa>[] passageiros;
+	private ArrayList<Pessoa> passageirosListados;
+	private ArrayList<OnibusUtilizacao> onibusListados;
+	private final int fatorDivisao = 50;
 	private double tempoOnibus[];
 	private Integer[] mutaveis;
 	
@@ -83,19 +88,86 @@ public class BaseInfo {
 		return qtdPonto;
 	}
 	public void setQtdPonto(int qtdPonto) {
+		passageiros = new ArrayList[qtdPonto];
 		this.qtdPonto = qtdPonto;
 	}
-	public ArrayList<Pessoa> getPassageiros() {
+	public ArrayList<Pessoa>[] getPassageiros() {
 		return passageiros;
 	}
+	
+	
+	public ArrayList<Pessoa> getPassageirosListados() {
+		return passageirosListados;
+	}
+
+
+	public void setPassageirosListados(ArrayList<Pessoa> passageirosListados) {
+		this.passageirosListados = passageirosListados;
+	}
+
 	public void setPassageiros(ArrayList<Pessoa> passageiros) {
-		this.passageiros = passageiros;
+		
+		for(int i = 0; i < this.passageiros.length; i++) {
+			this.passageiros[i] = new ArrayList<>();
+			for(Pessoa p:passageiros) {
+				if(p.getPartida() == i) {
+					this.passageiros[i].add(p);
+				}
+			}
+			
+			Collections.sort(this.passageiros[i], new Comparator <Pessoa>() {
+
+				@Override
+				public int compare(Pessoa o1, Pessoa o2) {
+					if (o1.getInicioEspera() >= o2.getInicioEspera())
+						return 1;
+					return -1;
+				}
+			});
+			
+		}
+		
+		
+//		Collections.sort(passageiros, new Comparator <Pessoa>() {
+//
+//			@Override
+//			public int compare(Pessoa o1, Pessoa o2) {
+//				if (o1.getInicioEspera() >= o2.getInicioEspera())
+//					return 1;
+//				return -1;
+//			}
+//		});
+		
+		passageirosListados = passageiros;
 	}
-	public ArrayList<OnibusUtilizacao> getOnibus() {
-		return onibus;
+	
+	
+	public ArrayList<OnibusUtilizacao> getOnibusListados() {
+		return onibusListados;
 	}
+
+
+	public int getFatorDivisao() {
+		return fatorDivisao;
+	}
+
 	public void setOnibus(ArrayList<OnibusUtilizacao> onibus) {
-		this.onibus = onibus;
+		
+//		this.onibus = new ArrayList[fatorDivisao];
+//		
+//		for(int i = 0; i < fatorDivisao; i++) {
+//			this.onibus[i] = new ArrayList<>();
+//		}
+//		System.out.println(this.onibus.length);
+//		System.out.println(this.onibus[0].size());
+//		for(int j = 0; j< onibus.size(); j++) {
+//			System.out.println(onibus.size());
+//			System.out.println(tempoOnibus.length);
+//			System.out.println((int)tempoOnibus[j]%fatorDivisao);
+//			this.onibus[(int)tempoOnibus[j]%fatorDivisao].add(onibus.get(j));
+//		}
+		
+		onibusListados= onibus;
 	}
 	public static void setInstance(BaseInfo instance) {
 		BaseInfo.instance = instance;

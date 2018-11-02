@@ -26,26 +26,47 @@ public class Otibus {
 //		ArrayList<PassageiroResposta> prUltimaGeracao = new ArrayList<PassageiroResposta>();
 		Resposta resposta = new Resposta();
 		ArrayList<OnibusUtilizacao> oni = defineOnibus(onibus);
+//		System.out.println("aqui "+oni.size());
 		ArrayList<Pessoa> pass = definePassageiros(passageiros);
 		BaseInfo base = BaseInfo.getInstance();
+		
+//		for(Pessoa as:pass)
+//			System.out.println(as.getInicioEspera());
+//		
+//		System.out.println("aquuuuuui");
+		atualizeTempoOnibus(onibus, base);
+		base.setQtdPonto(quantidadePontos);
 		base.setOnibus(oni);
 		base.setPassageiros(pass);
+		
+//		for(Pessoa as:base.getPassageiros())
+//			System.out.println(as.getInicioEspera());
+		
 		base.setTm(temposMedios);
-		base.setQtdPonto(quantidadePontos);
-		atualizeTempoOnibus(onibus, base);
+		
 		base.definePermitidos(onibus, quantidadePontos);
+//		ArrayList<Pessoa>[] z = base.getPassageiros();
+//		ArrayList<OnibusUtilizacao>[] onibusPorTempo = base.getOnibus();
+		
+//		for(int i = 0; i < onibusPorTempo.length; i++) {
+//			for(OnibusUtilizacao p:onibusPorTempo[i])
+//				System.out.print(p.getId()+ "\t");
+//			System.out.println("");
+//		}
 //		System.out.println(base.getMutaveis().length);
 		
 //		for(int z = 0; z < base.getMutaveis().length; z++)
 //			System.out.println(base.getMutaveis()[z]);
 //		
-		resposta.setFitnessBaseline(calculeBaseline(quantidadePontos,onibus.size()));
+//		resposta.setFitnessBaseline(calculeBaseline(quantidadePontos,onibus.size()));
 //		System.out.println(calculeBaseline(quantidadePontos,onibus.size()));
 //		System.out.println(calculeBaseline(quantidadePontos,onibus.size()));
 //		System.out.println(calculeBaseline(quantidadePontos,onibus.size()));
 //		System.out.println(calculeBaseline(quantidadePontos,onibus.size()));
 //		System.out.println(resposta.getFitnessBaseline());
 		Cromossomo[]cromossomos = definePrimeiraGeracao(quantidadePontos, onibus);
+//		rodaTeste();
+
 //		rodaTeste();
 		run(cromossomos, resposta, numeroGeracoes);
 //		for (OnibusUtilizacao o:oni) {
@@ -61,9 +82,11 @@ public class Otibus {
 			false, true, false, true,
 			true, false, false, true,
 			false, false, true, true
-	};
+		};
 		
 		Cromossomo c = new Cromossomo(b);
+		for(boolean s:c.getConteudo())
+			System.out.println(s);
 		Fitness f = new Fitness();
 		System.out.println(f.calculaFitness(c, null));
 	}
@@ -81,7 +104,7 @@ public class Otibus {
 	}
 	
 	private Cromossomo[] definePrimeiraGeracao(int quantidadePontos, ArrayList<Onibus> onibus) {
-		Cromossomo[]cromossomos= new Cromossomo[200];
+		Cromossomo[]cromossomos= new Cromossomo[100];
 		for(int i=0;i<cromossomos.length;i++){
 			cromossomos[i]= new Cromossomo(quantidadePontos,onibus);
 		}

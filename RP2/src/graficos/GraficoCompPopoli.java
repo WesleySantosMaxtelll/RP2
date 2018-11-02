@@ -90,7 +90,7 @@ void EscalaY(Graphics g,double ratio, int n,double min){
 			double modelo= passageiros2.get(i).getHorarioTermino()-passageiros2.get(i).getInicioEspera();
 		
 			double delta = modelo-base;
-			System.out.println("DELTA"+delta);
+//			System.out.println("DELTA"+delta);
 			
 			if(minY>delta)minY=delta;
 			if(maxY<delta)maxY=delta;
@@ -135,12 +135,12 @@ void EscalaY(Graphics g,double ratio, int n,double min){
 
 		EscalaX(g,ratioX,10,minX);
 		EscalaY(g,ratioY,10,minY);
-		
-		System.out.println("MINX"+minX);
-		System.out.println("MINY"+minY);
-		System.out.println("MAXX"+maxX);
-		System.out.println("MAXY"+maxY);
-		
+//		
+//		System.out.println("MINX"+minX);
+//		System.out.println("MINY"+minY);
+//		System.out.println("MAXX"+maxX);
+//		System.out.println("MAXY"+maxY);
+//		
 		
 		
 	}

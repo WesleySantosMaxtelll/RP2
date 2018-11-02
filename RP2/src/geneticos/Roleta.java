@@ -16,6 +16,7 @@ public class Roleta {
 	
 	int sortear(){
 		double agulha=Math.random()*totalFitness;
+//		System.out.println(agulha);
 		for(Setor s: setores){
 			if(agulha<=s.topo && agulha>=s.base)return s.id;
 			

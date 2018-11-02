@@ -1,7 +1,10 @@
 package teste;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import api_interface.Onibus;
 import api_interface.Otibus;
@@ -16,33 +19,33 @@ public class TesteAPI {
 		
 		ArrayList<Passageiros> passageiros = new ArrayList<>();
 		Random rand = new Random();
-		for(int i = 0; i < 1000; i++) {
+		for(int i = 0; i < 3000; i++) {
 			Passageiros p1 = new Passageiros();
 			int origem = 0;
-			if(Math.random() > 0.8)
-				origem = rand.nextInt(15);
+			if(Math.random() > 0.6)
+				origem = rand.nextInt(19);
 			else
-				origem = rand.nextInt(4);
+				origem = rand.nextInt(8);
 			
 			int dest = 0;
 			if(Math.random() > 0.2 && origem < 4)
-				dest = 8 + rand.nextInt(16-8);
+				dest = 4 + rand.nextInt(20-4);
 			else
-				dest = origem+1 + rand.nextInt(15-origem);
+				dest = origem+1 + rand.nextInt(19-origem);
 			 
 			p1.setDestino(dest);
 			p1.setPartida(origem);
 			int temp = 0;
-			if(Math.random() > 0.7 && origem  < 4)
-				temp = 120 + rand.nextInt(200-120);
+			if(Math.random() > 0.6 && origem  < 5)
+				temp = 100 + rand.nextInt(200-100);
 			else
-				temp = 2 + rand.nextInt(550 - 2);
+				temp = 2 + rand.nextInt(600);
 			p1.setInicioEspera(temp);
 			passageiros.add(p1);
 			
 		}
 		for(Passageiros p:passageiros) {
-			if(p.getDestino() > 15) throw new Exception("alem do possivel");
+			if(p.getDestino() > 19) throw new Exception("alem do possivel");
 		}
 		
 //		Passageiros p1 = new Passageiros();
@@ -87,31 +90,65 @@ public class TesteAPI {
 		return onibusd;
 	}
 	
+	public static ArrayList<Passageiros> passageirosArquivo() {
+		ArrayList<Passageiros> passageiros = new ArrayList<Passageiros>();
+		
+		try {
+			 
+			Scanner sc= new Scanner(new File("/home/maxtelll/Documents/USP/sextoSemestre/rp2/passageiros.txt"));
+			while(sc.hasNext()){
+				String[] s = sc.nextLine().split(";");
+				Passageiros p = new Passageiros();
+				p.setInicioEspera(Double.parseDouble(s[0]));
+				p.setPartida(Integer.parseInt(s[1]));
+				p.setDestino(Integer.parseInt(s[2]));
+				passageiros.add(p);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return passageiros;
+	}
+	
+	
 	public static void main(String[] args) throws Exception {
 //		double tempoOnibus[] = {10, 15, 71, 80, 100};
-		double tempoOnibus[] = {10, 50, 90, 120, 150, 170, 195, 220, 280, 350, 375, 400, 450, 480, 510, 550, 580, 600, 640, 660};
-		ArrayList<Passageiros> passageiros = todosOsPassageiros();
+		double tempoOnibus[] = {
+//				10, 15, 71, 80, 100
+//				10, 53, 90, 122, 154, 164, 199, 220, 280, 354, 377, 401, 454, 480, 510, 550, 583, 604, 645, 666
+				35680,46446,57967,18570,26959,52969,32322,62839,22713,31718,43202,54987,65691,24010,44924,52526,63264,24530,28657,51362,60568,69430,38183,50055,61826,20197,28795,34998,45492,58017,24629,36814,44532,56895,67178,57137,48448,58865,49036,49275,43369,52229,64264,15328,22552,28747,38486,49144,61781,23065,30523,14497,20845,28627,51509,62081,70554,60632,70477,20086,50431,60115,69585,52819,61666,15840,21987,33026,41827,54781,65482,23377,19505,26330,36792,50271,59786,16348,27643,36506,46191,57296,16779,23264,30287,39950,56984,66138,74256,22852,29197,38148,49456,62005,19586,26374,47827,58497,22379
+				};
+		for(int i = 0; i <tempoOnibus.length; i++) {
+			tempoOnibus[i] =(int)tempoOnibus[i]/4; 
+		}
+		ArrayList<Passageiros> passageiros = passageirosArquivo();
+		System.out.println(passageiros.size());
 		ArrayList<Onibus> onibus = todosOnibus(tempoOnibus);
-		
-		int qtdPontos = 16;
-		int nGeracoes = 30;
+		System.out.println(onibus.size());
+		int qtdPontos = 39;
+		int nGeracoes = 1000;
 		
 //		Cromossomo c = new Cromossomo(qtdPontos, onibus);
 //		for(int i = 0; i <c.getConteudo().length; i++)
 //			System.out.println(c.getConteudo()[i]);
 		
-		valores v = new valores();
+//		valores v = new valores();
+		TesteV2 v = new TesteV2();
 		Otibus o = new Otibus();
-//		v.mostra();
+//		v.mostra();4
+		long li = System.currentTimeMillis();
 		Resposta r = o.start(passageiros, onibus, v, qtdPontos, nGeracoes);
-		for(PassageiroResposta pr:r.getMelhorGeracao()) {
-			System.out.println(pr.getDestino() + " "+pr.getPartida() + " " +pr.getHorarioTermino() + " "+pr.getOnibusId());
-		}
-		
-		for(PassageiroResposta pr:r.getBaseline()) {
-			System.out.println(pr.getDestino() + " "+pr.getPartida() + " " +pr.getHorarioTermino() + " "+pr.getOnibusId());
-		}
-		new GraficoCompPopoli(r.getBaseline(), r.getMelhorGeracao());
+		System.out.println((System.currentTimeMillis()-li)/1000.0);
+//		for(PassageiroResposta pr:r.getMelhorGeracao()) {
+//			System.out.println(pr.getDestino() + " "+pr.getPartida() + " " +pr.getHorarioTermino() + " "+pr.getOnibusId());
+//		}
+//		
+//		for(PassageiroResposta pr:r.getBaseline()) {
+//			System.out.println(pr.getDestino() + " "+pr.getPartida() + " " +pr.getHorarioTermino() + " "+pr.getOnibusId());
+//		}
+//		new GraficoCompPopoli(r.getBaseline(), r.getMelhorGeracao());
 //		System.out.println(r.getFitnessBaseline());
 //		System.out.println(r.getUltimaGeracao()[0]);
 	}
@@ -120,12 +157,12 @@ public class TesteAPI {
 class valores implements TemposMedios{
 //	 {10, 15, 71, 80, 100};
 //	double tempoParadas[] = {3, 2, 4, 2};
-	double tempoParadas[] = {6, 7, 8, 12, 5, 28, 12, 4, 6, 7, 12, 9, 4, 7, 13, 8};
+	double tempoParadas[] = {6, 7, 8, 12, 5, 28, 12, 4, 6, 7, 12, 9, 4, 7, 13, 8, 7, 6, 8, 10};
 //	double [][]temposTrajetos = {	
 //			{3, 7, 1, 3, 2}, 
 //			{2, 4, 2, 4, 2}, 
 //			{4, 5, 1, 6, 3}};
-	double [][]temposTrajetos = new double[16][20];
+	double [][]temposTrajetos = new double[20][20];
 	Random rand = new Random(); 
 	public valores() {
 		for (int i = 0; i < temposTrajetos.length; i++) {     

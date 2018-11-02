@@ -26,19 +26,22 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 		cAux.setRotaPadrao();
 		resposta.setBaseline(new ArrayList<PassageiroResposta>());
 		double daux=f.calculaFitness(cAux, resposta.getBaseline());
-		
 		for(int geracao=0;geracao<Maxgeracoes;geracao++){
 			// para cada uma das geracoes 
 			
 			System.out.println("Geração G"+geracao);
 			
 			double totalFitness=0;
+//			System.out.println("Fitness por cromossomo:");
 			for(int aux=0; aux<fitness.length;aux++){
 				double tempFit = f.calculaFitness(geracaoAtual[aux], null);
 				fitness[aux]=tempFit;
+//				System.out.println(tempFit);
 				totalFitness+=1/tempFit;///FUNCAO DE MEDIR O FITNESS DO CROMOSSOMO
 			}
 			
+//			System.out.println("/------------------/");
+		
 			
 			// para compor a nova geracao
 			
@@ -46,7 +49,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			
 			Cromossomo[] novaGeracao=new Cromossomo[cromossomos.length];
 			
-			double[]probabilidade ={1,(100/(geracao*0.4+1)),1};//chances de cada operação genetica
+			double[]probabilidade ={1,(500/(geracao*0.3+1)),1};//chances de cada operação genetica
 			Roleta roletaOperacao = new Roleta(probabilidade);// roleta pra escolher a operação;
 			
 			for(int i=0;i<cromossomos.length;i++){
@@ -60,6 +63,8 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 						//System.out.println("clonagem");
 						break;
 					case 1:
+//						System.out.println("aqui:"+sorteio+" "+i+" "+roleta.sortear());
+						
 						novaGeracao[i]=OperadorGenetico.mutacao(geracaoAtual[roleta.sortear()], alfabeto);
 						//System.out.println("mutação");
 						break;
@@ -86,21 +91,19 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			
 		}
 		
-		double ftest = 0;
-		ArrayList<PassageiroResposta> pr = new ArrayList<>();
-		int h = -1;
-		for(int i = 0; i < geracaoAtual.length; i++) {
-			ArrayList<PassageiroResposta> temp = new ArrayList<>();
-			double ft = f.calculaFitness(geracaoAtual[i], temp);
-			if(ft > ftest) {
-				pr = temp;
-				h = i;
-			}
-		}
-		resposta.setMelhorGeracao(pr);
-		resposta.setUltimaGeracao(geracaoAtual[h]);
-		
-	
+//		double ftest = 0;
+//		ArrayList<PassageiroResposta> pr = new ArrayList<>();
+//		int h = -1;
+//		for(int i = 0; i < geracaoAtual.length; i++) {
+//			ArrayList<PassageiroResposta> temp = new ArrayList<>();
+//			double ft = f.calculaFitness(geracaoAtual[i], temp);
+//			if(ft > ftest) {
+//				pr = temp;
+//				h = i;
+//			}
+//		}
+//		resposta.setMelhorGeracao(pr);
+//		resposta.setUltimaGeracao(geracaoAtual[h]);
 		JOptionPane.showMessageDialog(null, 1/daux);
 		new Grafico1(fitMedio,1/daux);
 		return geracaoAtual;

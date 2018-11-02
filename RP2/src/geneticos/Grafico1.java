@@ -57,7 +57,10 @@ public class Grafico1 extends JFrame {
 			if(dado.doubleValue()<min)min=dado.doubleValue();
 		}
 		
-		double razao= 800/(max-min);
+		if(alturaLinhabase>max)max=alturaLinhabase;
+		if(alturaLinhabase<min)min=alturaLinhabase-10;
+		
+		double razao= 800/(100+max-min);
 		
 		int r=5;
 		if(p!=null)r=r+(int)(p.zoom);

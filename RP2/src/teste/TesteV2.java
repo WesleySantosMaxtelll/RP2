@@ -15,7 +15,7 @@ public class TesteV2 implements TemposMedios {
 	 public TesteV2(){
 		 try {
 			 
-			Scanner sc= new Scanner(new File("C:\\Users\\gusta\\Downloads\\averages (1).txt"));
+			Scanner sc= new Scanner(new File("/home/maxtelll/Documents/USP/sextoSemestre/rp2/averages.txt"));
 			while(sc.hasNext()){
 				tempoTrajeto.add( Double.parseDouble(sc.nextLine().split(";")[1]));
 			}
@@ -38,12 +38,7 @@ public class TesteV2 implements TemposMedios {
 	@Override
 	public double tempoParadoNoPonto(int ponto, int idOnibus, double tempoCorrente, int quatidadePassageiros) {
 		// TODO Auto-generated method stub
-		return 10 ;
+		return 20;
 	}
 	
-	public static void main(String[] args) {
-		TesteV2 t = new TesteV2();
-		System.out.println(t.tempoEntrePontos(2, 0, 0));
-	}
-
 }

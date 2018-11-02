@@ -29,7 +29,7 @@ public class Cromossomo {
 				if(onibus.get(i).isFixo()) {
 					conteudo[i*quantidadePontos+j] = true;
 				} else {
-					if(Math.random() < 0.4) 
+					if(Math.random() < 0.2) 
 						conteudo[i*quantidadePontos+j] = false;
 					else
 						conteudo[i*quantidadePontos+j] = true;
