@@ -3,6 +3,7 @@ package teste;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,6 +13,8 @@ import api_interface.PassageiroResposta;
 import api_interface.Passageiros;
 import api_interface.Resposta;
 import api_interface.TemposMedios;
+import geneticos.Cromossomo;
+import geneticos.OperadorGenetico;
 import graficos.GraficoCompPopoli;
 
 public class TesteAPI {
@@ -114,6 +117,36 @@ public class TesteAPI {
 	
 	
 	public static void main(String[] args) throws Exception {
+		
+		boolean[] b = new boolean[20];
+		Arrays.fill(b, Boolean.FALSE);
+		Cromossomo c1 = new Cromossomo(b);
+		
+//		boolean[] c = new boolean[20];
+//		Arrays.fill(c, Boolean.TRUE);
+//		Cromossomo c2 = new Cromossomo(c);
+//		
+//		for(boolean i:c1.getConteudo()) {
+//			System.out.print(i+"\t");
+//		}
+//		System.out.println("");
+//		for(boolean i:c2.getConteudo()) {
+//			System.out.print(i+"\t");
+//		}
+//		
+//		
+//		OperadorGenetico op = new OperadorGenetico();
+//		Cromossomo d[] = op.CrossoverPorOnibus(c1, c2, 5, 4);
+//		System.out.println("\n");
+//		for(boolean i:d[0].getConteudo()) {
+//			System.out.print(i+"\t");
+//		}
+//		System.out.println("");
+//		for(boolean i:d[1].getConteudo()) {
+//			System.out.print(i+"\t");
+//		}
+//		
+//		
 //		double tempoOnibus[] = {10, 15, 71, 80, 100};
 		double tempoOnibus[] = {
 //				10, 15, 71, 80, 100
@@ -128,7 +161,7 @@ public class TesteAPI {
 		ArrayList<Onibus> onibus = todosOnibus(tempoOnibus);
 		System.out.println(onibus.size());
 		int qtdPontos = 39;
-		int nGeracoes = 1000;
+		int nGeracoes = 500;
 		
 //		Cromossomo c = new Cromossomo(qtdPontos, onibus);
 //		for(int i = 0; i <c.getConteudo().length; i++)

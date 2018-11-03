@@ -24,6 +24,8 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 		Cromossomo[]geracaoAtual=cromossomos;
 		Cromossomo cAux=new Cromossomo(cromossomos[0].conteudo.length);
 		cAux.setRotaPadrao();
+		int qtdPontos = BaseInfo.getInstance().getQtdPonto();
+		int qtdOnibus = BaseInfo.getInstance().getOnibusListados().size();
 		resposta.setBaseline(new ArrayList<PassageiroResposta>());
 		double daux=f.calculaFitness(cAux, resposta.getBaseline());
 		for(int geracao=0;geracao<Maxgeracoes;geracao++){
@@ -49,7 +51,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			
 			Cromossomo[] novaGeracao=new Cromossomo[cromossomos.length];
 			
-			double[]probabilidade ={1,(500/(geracao*0.3+1)),1};//chances de cada operação genetica
+			double[]probabilidade ={1,(100/(geracao*0.3+1)),1+geracao*0.05};//chances de cada operação genetica
 			Roleta roletaOperacao = new Roleta(probabilidade);// roleta pra escolher a operação;
 			
 			for(int i=0;i<cromossomos.length;i++){
@@ -74,8 +76,11 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 							continue;
 						}
 						//System.out.println("crossover");
-						novaGeracao[i]=OperadorGenetico.Crossover1(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
-						novaGeracao[i+1]=OperadorGenetico.Crossover2(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
+						Cromossomo[] aux = OperadorGenetico.CrossoverPorOnibus(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()], qtdOnibus, qtdPontos);
+						novaGeracao[i] = aux[0];
+						novaGeracao[i+1] = aux[1];
+//						novaGeracao[i]=OperadorGenetico.Crossover1(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
+//						novaGeracao[i+1]=OperadorGenetico.Crossover2(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
 						i++;
 						break;
 				}

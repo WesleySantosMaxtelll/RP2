@@ -104,7 +104,7 @@ public class Otibus {
 	}
 	
 	private Cromossomo[] definePrimeiraGeracao(int quantidadePontos, ArrayList<Onibus> onibus) {
-		Cromossomo[]cromossomos= new Cromossomo[100];
+		Cromossomo[]cromossomos= new Cromossomo[300];
 		for(int i=0;i<cromossomos.length;i++){
 			cromossomos[i]= new Cromossomo(quantidadePontos,onibus);
 		}

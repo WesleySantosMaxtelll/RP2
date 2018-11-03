@@ -146,7 +146,7 @@ public class Fitness {
 			}
 			
 			if (c.getHorarioChegada() == Short.MAX_VALUE)
-				c.setHorarioChegada(tempoCorrente*1.5);
+				c.setHorarioChegada(tempoCorrente*1.2);
 			else
 				sucesso +=1;
 			f+=c.getHorarioChegada()-c.getInicioEspera();
