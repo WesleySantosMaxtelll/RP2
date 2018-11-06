@@ -92,12 +92,13 @@ public class Grafico1 extends JFrame {
 		g.drawString((float)(min+(i*100)/razao)+"",10,getHeight()-80-(i*100));
 		g.drawLine(90+20,getHeight()-80-(i*100),110+20,getHeight()-80-(i*100));
 		}
-		g.setFont(new Font(Font.MONOSPACED,Font.BOLD,15));
+		g.setFont(new Font(Font.MONOSPACED,Font.BOLD,10));
 		for(int k=0;k<50;k++){
 			g.drawLine(120+k*30,getHeight()-60,120+k*30,getHeight()-50);
-			g.drawString(""+(k*30)/r+"",120+k*30,getHeight()-30);
+			g.drawString(""+(k*30)/r+"",(120+k*30)-5,getHeight()-30);
 		}
 		//g.drawString(,320-150,71);
+		g.setFont(new Font(Font.MONOSPACED,Font.BOLD,14));
 		g.setColor(Color.red);
 		g.drawLine(0,getHeight()-((int)(alturaLinhabase*razao)-(int)(min*razao)+80) , 2000, getHeight()-((int)(alturaLinhabase*razao)-(int)(min*razao)+80));
 		g.drawString(alturaLinhabase+"",40,getHeight()-((int)(alturaLinhabase*razao)-(int)(min*razao)+80)+14);

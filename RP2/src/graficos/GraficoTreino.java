@@ -36,7 +36,7 @@ public class GraficoTreino extends JFrame {
 					while(true){
 						repaint();
 						try {
-							Thread.sleep((1000/1));
+							Thread.sleep((1000/10));
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -104,8 +104,9 @@ public class GraficoTreino extends JFrame {
 				Yacu+=razaoY;
 			}
 			
+			
 			for(int i=0;i<100;i++){
-				g.setColor(Color.RED);
+				g.setColor(Color.blue);
 				g.drawLine((int)(i*39*(razaoX)), 0,(int)( i*39*(razaoX)), 1000);
 			}
 			

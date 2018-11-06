@@ -15,7 +15,7 @@ public class TesteV2 implements TemposMedios {
 	 public TesteV2(){
 		 try {
 			 
-			Scanner sc= new Scanner(new File("/home/maxtelll/Documents/USP/sextoSemestre/rp2/averages.txt"));
+			Scanner sc= new Scanner(new File("C:\\Users\\gusta\\Downloads\\averages (1).txt"));
 			while(sc.hasNext()){
 				tempoTrajeto.add( Double.parseDouble(sc.nextLine().split(";")[1]));
 			}
@@ -27,10 +27,8 @@ public class TesteV2 implements TemposMedios {
 	 }
 	
 	double[] tep = {
-				20,20,22,21,25,28,30,32,35,40,
-				42,55,39,38,32,42,40,39,35,33,
-				42,55,39,45,43,42,55,39,45,43,
-				28,25,20,22,19,20,20,18,22
+			2, 24, 22, 24, 24, 25, 32, 30, 30, 29, 29, 29, 12, 13, 12, 12, 12, 13, 12, 12, 12, 12, 12, 14, 14, 12, 12, 12, 12, 21, 24, 25, 22, 6, 8, 8, 8, 8, 4
+
 			};
 	
 

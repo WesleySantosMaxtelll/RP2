@@ -11,11 +11,13 @@ import javax.swing.JOptionPane;
 
 import api_interface.PassageiroResposta;
 import api_interface.Resposta;
+import graficos.GraficoTreino;
 import itens.OnibusUtilizacao;
 import itens.Pessoa;
 import itens.TemposMedios;
 
 public class Principal {
+	
 	
 public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,boolean[] alfabeto, Resposta resposta){
 		
@@ -32,6 +34,8 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 		resposta.setBaseline(new ArrayList<PassageiroResposta>());
 		double daux=f.calculaFitness(cAux, resposta.getBaseline());
 		int correcao = 0;
+		int []auxint= new int[5000];
+		GraficoTreino gt= new GraficoTreino(geracaoAtual,auxint);
 		
 		for(int geracao=0;geracao<Maxgeracoes;geracao++){
 			// para cada uma das geracoes 
@@ -40,13 +44,21 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			
 			
 			double totalFitness=0;
+			double minfit= Double.MAX_VALUE;
 //			System.out.println("Fitness por cromossomo:");
 			for(int aux=0; aux<fitness.length;aux++){
 				double tempFit = f.calculaFitness(geracaoAtual[aux], null);
 				fitness[aux]=tempFit;
+				if(tempFit<minfit)minfit=tempFit;
 //				System.out.println(tempFit);
 				totalFitness+=1/tempFit;///FUNCAO DE MEDIR O FITNESS DO CROMOSSOMO
 			}
+			
+			//normalizando fitness
+			for(int aux=0; aux<fitness.length;aux++){
+				fitness[aux]-=minfit;
+			}
+			
 			
 //			System.out.println("/------------------/");
 		
@@ -102,6 +114,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 				
 				
 			}
+			gt.SetCromosso(geracaoAtual);
 			System.out.println("F:"+totalFitness/geracaoAtual.length);
 			System.out.println("");
 			geracaoAtual=novaGeracao;
@@ -128,7 +141,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			saida += String.valueOf(d)+"\n";
 		}
 		try {
-            FileWriter writer = new FileWriter("/home/maxtelll/Documents/USP/sextoSemestre/rp2/dadosSaidaV2.txt", false);
+            FileWriter writer = new FileWriter("dadosSaidaV2.txt", false);
             writer.write(saida);
             writer.close();
         } catch (IOException e) {
