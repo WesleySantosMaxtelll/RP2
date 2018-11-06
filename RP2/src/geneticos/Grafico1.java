@@ -30,6 +30,7 @@ public class Grafico1 extends JFrame {
 		revalidate();
 		this.alturaLinhabase=alturaLinhabase;
 		
+		
 	}
 	//gambiarra
 	{

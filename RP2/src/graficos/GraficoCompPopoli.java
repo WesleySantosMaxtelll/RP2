@@ -92,6 +92,7 @@ void EscalaY(Graphics g,double ratio, int n,double min){
 			double delta = modelo-base;
 //			System.out.println("DELTA"+delta);
 			
+			
 			if(minY>delta)minY=delta;
 			if(maxY<delta)maxY=delta;
 			

@@ -21,6 +21,7 @@ public class Principal {
 	
 public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,boolean[] alfabeto, Resposta resposta){
 		
+	
 		Fitness f=  new Fitness();
 		//temos que ter uma populaçã aleatoria;
 		ArrayList<Double>fitMedio=new ArrayList<>();

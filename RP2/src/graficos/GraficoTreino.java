@@ -63,6 +63,7 @@ public class GraficoTreino extends JFrame {
 		
 		
 		
+		
 		public void paint(Graphics g){
 			idb= createImage(getWidth(),getHeight());
 			gdb=idb.getGraphics();

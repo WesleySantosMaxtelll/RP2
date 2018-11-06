@@ -31,6 +31,7 @@ public class TesteV2 implements TemposMedios {
 
 			};
 	
+	
 
 	@Override
 	public double tempoEntrePontos(int ponto, int idOnibus, double tempoCorrente) {

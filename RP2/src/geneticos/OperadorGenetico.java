@@ -22,6 +22,7 @@ public class OperadorGenetico {
 		return resultante;
 	}
 	
+	
 	public static Cromossomo mutacaoViagem(Cromossomo original,boolean[]alfabeto, int qtdOnibus,int qtdPontos) {
 		int quantidadeGenes=original.conteudo.length;//quantidade de Genes que tem um Cromossomo;
 		Cromossomo resultante=new Cromossomo(quantidadeGenes);

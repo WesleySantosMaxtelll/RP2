@@ -99,6 +99,7 @@ public class Otibus {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		Cromossomo[] geracao = Principal.VidaCruel(cromossomos, geracoes, 3, alfabeto, resposta);
 		resposta.setUltimaGeracao(geracao);
 		
