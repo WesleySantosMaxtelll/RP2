@@ -26,7 +26,12 @@ public class TesteV2 implements TemposMedios {
 		 
 	 }
 	
-	
+	double[] tep = {
+				20,20,22,21,25,28,30,32,35,40,
+				42,55,39,38,32,42,40,39,35,33,
+				42,55,39,45,43,42,55,39,45,43,
+				28,25,20,22,19,20,20,18,22
+			};
 	
 
 	@Override
@@ -38,7 +43,7 @@ public class TesteV2 implements TemposMedios {
 	@Override
 	public double tempoParadoNoPonto(int ponto, int idOnibus, double tempoCorrente, int quatidadePassageiros) {
 		// TODO Auto-generated method stub
-		return 20;
+		return tep[ponto];
 	}
 	
 }

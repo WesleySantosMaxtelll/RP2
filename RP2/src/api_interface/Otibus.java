@@ -100,11 +100,12 @@ public class Otibus {
 			e.printStackTrace();
 		}
 		Cromossomo[] geracao = Principal.VidaCruel(cromossomos, geracoes, 3, alfabeto, resposta);
+		resposta.setUltimaGeracao(geracao);
 		
 	}
 	
 	private Cromossomo[] definePrimeiraGeracao(int quantidadePontos, ArrayList<Onibus> onibus) {
-		Cromossomo[]cromossomos= new Cromossomo[300];
+		Cromossomo[]cromossomos= new Cromossomo[3000];
 		for(int i=0;i<cromossomos.length;i++){
 			cromossomos[i]= new Cromossomo(quantidadePontos,onibus);
 		}

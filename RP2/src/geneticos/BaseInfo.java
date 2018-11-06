@@ -27,7 +27,7 @@ public class BaseInfo {
 	private ArrayList<Pessoa>[] passageiros;
 	private ArrayList<Pessoa> passageirosListados;
 	private ArrayList<OnibusUtilizacao> onibusListados;
-	private final int fatorDivisao = 50;
+	private final int fatorDivisao = 80;
 	private double tempoOnibus[];
 	private Integer[] mutaveis;
 	

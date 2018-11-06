@@ -1,5 +1,8 @@
 package geneticos;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,10 +31,13 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 		int qtdOnibus = BaseInfo.getInstance().getOnibusListados().size();
 		resposta.setBaseline(new ArrayList<PassageiroResposta>());
 		double daux=f.calculaFitness(cAux, resposta.getBaseline());
+		int correcao = 0;
+		
 		for(int geracao=0;geracao<Maxgeracoes;geracao++){
 			// para cada uma das geracoes 
 			
 			System.out.println("Geração G"+geracao);
+			
 			
 			double totalFitness=0;
 //			System.out.println("Fitness por cromossomo:");
@@ -51,7 +57,13 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			
 			Cromossomo[] novaGeracao=new Cromossomo[cromossomos.length];
 			
-			double[]probabilidade ={1,(100/(geracao*0.3+1)),1+geracao*0.05};//chances de cada operação genetica
+			if(Math.random() > 0.98) {
+				correcao = 50;
+			} else {
+				if(correcao >0) correcao -=5;
+			}
+			
+			double[]probabilidade ={1+geracao*0.008,correcao+(200/(geracao*0.3+1)),1+geracao*0.05};//chances de cada operação genetica
 			Roleta roletaOperacao = new Roleta(probabilidade);// roleta pra escolher a operação;
 			
 			for(int i=0;i<cromossomos.length;i++){
@@ -66,8 +78,10 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 						break;
 					case 1:
 //						System.out.println("aqui:"+sorteio+" "+i+" "+roleta.sortear());
-						
-						novaGeracao[i]=OperadorGenetico.mutacao(geracaoAtual[roleta.sortear()], alfabeto);
+						if(Math.random() >0.8)
+							novaGeracao[i]=OperadorGenetico.mutacaoViagem(geracaoAtual[roleta.sortear()], alfabeto, qtdOnibus, qtdPontos);
+						else
+							novaGeracao[i]=OperadorGenetico.mutacao(geracaoAtual[roleta.sortear()], alfabeto);
 						//System.out.println("mutação");
 						break;
 					case 2:
@@ -109,6 +123,18 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 //		}
 //		resposta.setMelhorGeracao(pr);
 //		resposta.setUltimaGeracao(geracaoAtual[h]);
+		String saida = String.valueOf(1/daux)+"\n";
+		for(Double d:fitMedio) {
+			saida += String.valueOf(d)+"\n";
+		}
+		try {
+            FileWriter writer = new FileWriter("/home/maxtelll/Documents/USP/sextoSemestre/rp2/dadosSaidaV2.txt", false);
+            writer.write(saida);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
 		JOptionPane.showMessageDialog(null, 1/daux);
 		new Grafico1(fitMedio,1/daux);
 		return geracaoAtual;

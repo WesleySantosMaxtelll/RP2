@@ -14,12 +14,31 @@ public class OperadorGenetico {
 		
 		int posicao=devolvePosicao();// escolhe uma posicao aleatoria no conteudo do cromossomo
 //		System.out.println(posicao);
-		if(Math.random() > 0.6)
+		if(Math.random() > 0.65)
 			resultante.conteudo[posicao]=true;
 		else
 			resultante.conteudo[posicao]=false;
 		
 		return resultante;
+	}
+	
+	public static Cromossomo mutacaoViagem(Cromossomo original,boolean[]alfabeto, int qtdOnibus,int qtdPontos) {
+		int quantidadeGenes=original.conteudo.length;//quantidade de Genes que tem um Cromossomo;
+		Cromossomo resultante=new Cromossomo(quantidadeGenes);
+		resultante.conteudo=original.conteudo.clone();
+		int onibus = rand.nextInt(qtdOnibus);
+		
+//		System.out.println(onibus);
+		for(int i=0; i < qtdPontos; i++) {
+			if(Math.random() > 0.5)
+				resultante.conteudo[onibus*qtdPontos+i]=true;
+			else
+				resultante.conteudo[onibus*qtdPontos+i]=false;
+				
+		}
+		
+		return resultante;
+		
 	}
 	
 	static Cromossomo clonagem(Cromossomo original){

@@ -118,10 +118,10 @@ public class TesteAPI {
 	
 	public static void main(String[] args) throws Exception {
 		
-		boolean[] b = new boolean[20];
-		Arrays.fill(b, Boolean.FALSE);
-		Cromossomo c1 = new Cromossomo(b);
-		
+//		boolean[] b = new boolean[20];
+//		Arrays.fill(b, Boolean.TRUE);
+//		Cromossomo c1 = new Cromossomo(b);
+//		
 //		boolean[] c = new boolean[20];
 //		Arrays.fill(c, Boolean.TRUE);
 //		Cromossomo c2 = new Cromossomo(c);
@@ -136,9 +136,9 @@ public class TesteAPI {
 //		
 //		
 //		OperadorGenetico op = new OperadorGenetico();
-//		Cromossomo d[] = op.CrossoverPorOnibus(c1, c2, 5, 4);
+//		Cromossomo d = op.mutacaoViagem(c1, new boolean[] {true, false}, 5, 4);
 //		System.out.println("\n");
-//		for(boolean i:d[0].getConteudo()) {
+//		for(boolean i:d.getConteudo()) {
 //			System.out.print(i+"\t");
 //		}
 //		System.out.println("");
@@ -161,7 +161,7 @@ public class TesteAPI {
 		ArrayList<Onibus> onibus = todosOnibus(tempoOnibus);
 		System.out.println(onibus.size());
 		int qtdPontos = 39;
-		int nGeracoes = 500;
+		int nGeracoes = 5;
 		
 //		Cromossomo c = new Cromossomo(qtdPontos, onibus);
 //		for(int i = 0; i <c.getConteudo().length; i++)
@@ -181,9 +181,9 @@ public class TesteAPI {
 //		for(PassageiroResposta pr:r.getBaseline()) {
 //			System.out.println(pr.getDestino() + " "+pr.getPartida() + " " +pr.getHorarioTermino() + " "+pr.getOnibusId());
 //		}
-//		new GraficoCompPopoli(r.getBaseline(), r.getMelhorGeracao());
-//		System.out.println(r.getFitnessBaseline());
-//		System.out.println(r.getUltimaGeracao()[0]);
+		new GraficoCompPopoli(r.getBaseline(), r.getMelhorGeracao());
+		System.out.println(r.getFitnessBaseline());
+		System.out.println(r.getUltimaGeracao()[0]);
 	}
 }
 

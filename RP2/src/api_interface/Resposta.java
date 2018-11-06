@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import geneticos.Cromossomo;
 
 public class Resposta {
-	private Cromossomo ultimaGeracao;
+	private Cromossomo[] ultimaGeracao;
 	private double fitnessBaseline;
 	private ArrayList<Double> fitnessPorGeracao;
 	
@@ -26,10 +26,10 @@ public class Resposta {
 	public void setMelhorGeracao(ArrayList<PassageiroResposta> melhorGeracao) {
 		this.melhorGeracao = melhorGeracao;
 	}
-	public Cromossomo getUltimaGeracao() {
+	public Cromossomo[] getUltimaGeracao() {
 		return ultimaGeracao;
 	}
-	public void setUltimaGeracao(Cromossomo ultimaGeracao) {
+	public void setUltimaGeracao(Cromossomo[] ultimaGeracao) {
 		this.ultimaGeracao = ultimaGeracao;
 	}
 	public double getFitnessBaseline() {
