@@ -88,6 +88,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 					case 0:
 						novaGeracao[i]=OperadorGenetico.clonagem(geracaoAtual[roleta.sortear()]);
 						//System.out.println("clonagem");
+						auxint[i]=100;
 						break;
 					case 1:
 //						System.out.println("aqui:"+sorteio+" "+i+" "+roleta.sortear());
@@ -95,8 +96,11 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 							novaGeracao[i]=OperadorGenetico.mutacaoViagem(geracaoAtual[roleta.sortear()], alfabeto, qtdOnibus, qtdPontos);
 						else
 							novaGeracao[i]=OperadorGenetico.mutacao(geracaoAtual[roleta.sortear()], alfabeto);
+						
+						auxint[i]=221;
 						//System.out.println("mutação");
 						break;
+						
 					case 2:
 						if(i==cromossomos.length-1){
 							i--;
@@ -109,6 +113,8 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 //						novaGeracao[i]=OperadorGenetico.Crossover1(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
 //						novaGeracao[i+1]=OperadorGenetico.Crossover2(geracaoAtual[roleta.sortear()],geracaoAtual[roleta.sortear()]);
 						i++;
+						
+						auxint[i]=331;
 						break;
 				}
 				
