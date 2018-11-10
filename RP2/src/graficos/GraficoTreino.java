@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Arrays;
 
 import javax.swing.JFrame;
@@ -17,6 +19,8 @@ public class GraficoTreino extends JFrame {
 	Graphics gdb;
 	Image idb;
 	int[]tipo;
+	int X=0;
+	double LARGURA=3200.0;
 	public void SetCromosso(Cromossomo[] individoss) {
 		// TODO Auto-generated method stub
 		this.individos= individoss;
@@ -33,10 +37,34 @@ public class GraficoTreino extends JFrame {
 		public GraficoTreino (Cromossomo[] individoss,int[]tipo){
 			this.tipo=tipo;
 			this.individos=individoss;
-			setSize(1000,2000);
+			setSize(1000,1000);
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
 			setVisible(true);
 			Arrays.sort(tempoOnibus);
+			
+			
+			addKeyListener(new KeyListener() {
+				
+				@Override
+				public void keyTyped(KeyEvent e) {
+					// TODO Auto-generated method stub
+					if(e.getKeyChar()=='a')X-=10;
+					if(e.getKeyChar()=='d'&& X<0)X+=10;
+					
+				}
+				
+				@Override
+				public void keyReleased(KeyEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void keyPressed(KeyEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 			
 		}
 		{
@@ -76,19 +104,19 @@ public class GraficoTreino extends JFrame {
 		
 		
 		public void paint(Graphics g){
-			idb= createImage(getWidth(),getHeight());
+			idb= createImage(3750,getHeight());
 			gdb=idb.getGraphics();
 			paintComponent(gdb);
-			g.drawImage(idb, 0, 0,this);
+			g.drawImage(idb,X, 0,this);
 		}
 		
 		public void paintComponent(Graphics g){
 			g.setColor(Color.WHITE);
-			g.fillRect(0, 0, getWidth(), getHeight());
+			g.fillRect(0, 0, (int) LARGURA, getHeight());
 
-			double razaoX=1750.0/individos[0].getConteudo().length;
+			double razaoX=(LARGURA-200)/individos[0].getConteudo().length;
 			
-			double razaoY=1000.0/individos.length;
+			double razaoY=800.0/individos.length;
 			double Yacu=0;
 			for(int j=0;j<individos.length;j++){
 				double Xacu=0;
@@ -112,14 +140,14 @@ public class GraficoTreino extends JFrame {
 			
 				g.setColor(corHash(tipo[j]));
 				//g.setColor(Color.red);
-				g.fillRect(1750, (int)Yacu,50,((int)(Yacu+razaoY))-((int)Yacu));
+				g.fillRect((int) (LARGURA-200), (int)Yacu,50,((int)(Yacu+razaoY))-((int)Yacu));
 				Yacu+=razaoY;
 			}
 			
 			
 			for(int i=0;i<100;i++){
 				g.setColor(Color.blue);
-				g.drawLine((int)(i*39*(razaoX)), 0,(int)( i*39*(razaoX)), 1000);
+				g.drawLine((int)(i*39*(razaoX)), 0,(int)( i*39*(razaoX)), 800);
 			}
 			//risquinhos da escala de tempo
 			for(int i=0;i<99;i++){

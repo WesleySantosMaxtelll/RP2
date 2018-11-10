@@ -63,17 +63,17 @@ public class Grafico1 extends JFrame {
 		
 		double razao= 800/(100+max-min);
 		
-		int r=5;
-		if(p!=null)r=r+(int)(p.zoom);
+		double r=5;
+		if(p!=null)r=r*(p.zoom);
 		
-		int antX =120;
+		double antX =120;
 		int antY=getHeight()-60;
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(3));
 		
 		for(Double dado:dados){
 			if(dado!=dados.get(0))
-			g.drawLine(antX, antY, antX+r, getHeight()-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80));
+			g.drawLine((int)antX, antY,(int) (antX+r), getHeight()-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80));
 			antX=antX+r;
 			antY=getHeight()-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80);
 		}
@@ -96,7 +96,7 @@ public class Grafico1 extends JFrame {
 		g.setFont(new Font(Font.MONOSPACED,Font.BOLD,10));
 		for(int k=0;k<50;k++){
 			g.drawLine(120+k*30,getHeight()-60,120+k*30,getHeight()-50);
-			g.drawString(""+(k*30)/r+"",(120+k*30)-5,getHeight()-30);
+			g.drawString(""+(int)((k*30)/r)+"",(120+k*30)-5,getHeight()-30);
 		}
 		//g.drawString(,320-150,71);
 		g.setFont(new Font(Font.MONOSPACED,Font.BOLD,14));

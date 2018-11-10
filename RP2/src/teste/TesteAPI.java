@@ -161,7 +161,7 @@ public class TesteAPI {
 		ArrayList<Onibus> onibus = todosOnibus(tempoOnibus);
 		System.out.println(onibus.size());
 		int qtdPontos = 39;
-		int nGeracoes = 1500;
+		int nGeracoes = 150;
 		
 //		Cromossomo c = new Cromossomo(qtdPontos, onibus);
 //		for(int i = 0; i <c.getConteudo().length; i++)

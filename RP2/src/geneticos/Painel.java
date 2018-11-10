@@ -31,7 +31,7 @@ public class Painel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				zoom++;
+				zoom*=2;
 				controlado.repaint();
 			}
 		});
@@ -41,7 +41,7 @@ public class Painel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				zoom--;
+				zoom*=0.5;
 				controlado.repaint();
 			}
 		});
