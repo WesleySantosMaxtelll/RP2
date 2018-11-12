@@ -116,7 +116,7 @@ public class GraficoTreino extends JFrame {
 
 			double razaoX=(LARGURA-200)/individos[0].getConteudo().length;
 			
-			double razaoY=800.0/individos.length;
+			double razaoY=600.0/individos.length;
 			double Yacu=0;
 			for(int j=0;j<individos.length;j++){
 				double Xacu=0;

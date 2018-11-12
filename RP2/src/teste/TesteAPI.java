@@ -98,7 +98,7 @@ public class TesteAPI {
 		
 		try {
 			 
-			Scanner sc= new Scanner(new File("C:\\Users\\gusta\\Downloads\\passageiros.txt"));
+			Scanner sc= new Scanner(new File("/home/maxtelll/Documents/USP/sextoSemestre/rp2/passageiros.txt"));
 			while(sc.hasNext()){
 				String[] s = sc.nextLine().split(";");
 				Passageiros p = new Passageiros();
@@ -161,7 +161,7 @@ public class TesteAPI {
 		ArrayList<Onibus> onibus = todosOnibus(tempoOnibus);
 		System.out.println(onibus.size());
 		int qtdPontos = 39;
-		int nGeracoes = 150;
+		int nGeracoes = 200;
 		
 //		Cromossomo c = new Cromossomo(qtdPontos, onibus);
 //		for(int i = 0; i <c.getConteudo().length; i++)
