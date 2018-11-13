@@ -221,7 +221,7 @@ public class Fitness {
 			}
 		}
 		if(o.chegou(tempoCorrente)) {
-			if(printa)System.out.println("Onibus chegou no ponto " +o.getParada());
+			if(printa)System.out.println("Onibus"+o.getId()+" chegou no ponto " +o.getParada());
 			o.setParadoNoPonto();
 			o.podemDescer();
 			
@@ -245,7 +245,7 @@ public class Fitness {
 			if(p.getInicioEspera() > tempoCorrente) {
 				break;
 			}
-			if(p.estaEsperando() && paraAqui(onibusIndice, p.getDestino()) ) {
+			if(p.estaEsperando() && paraAqui(onibusIndice, p.getDestino())) {
 						if(onibus.get(onibusIndice).cabemPassageiros()) {
 							if(printa)System.out.println(" vai subir ");
 							onibus.get(onibusIndice).getPassageiros().add(p);

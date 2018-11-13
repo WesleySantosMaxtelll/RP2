@@ -7,6 +7,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,60 +26,60 @@ public class TesteAPI {
 		
 		ArrayList<Passageiros> passageiros = new ArrayList<>();
 		Random rand = new Random();
-		for(int i = 0; i < 3000; i++) {
-			Passageiros p1 = new Passageiros();
-			int origem = 0;
-			if(Math.random() > 0.6)
-				origem = rand.nextInt(19);
-			else
-				origem = rand.nextInt(8);
-			
-			int dest = 0;
-			if(Math.random() > 0.2 && origem < 4)
-				dest = 4 + rand.nextInt(20-4);
-			else
-				dest = origem+1 + rand.nextInt(19-origem);
-			 
-			p1.setDestino(dest);
-			p1.setPartida(origem);
-			int temp = 0;
-			if(Math.random() > 0.6 && origem  < 5)
-				temp = 100 + rand.nextInt(200-100);
-			else
-				temp = 2 + rand.nextInt(600);
-			p1.setInicioEspera(temp);
-			passageiros.add(p1);
-			
-		}
-		for(Passageiros p:passageiros) {
-			if(p.getDestino() > 19) throw new Exception("alem do possivel");
-		}
+//		for(int i = 0; i < 3000; i++) {
+//			Passageiros p1 = new Passageiros();
+//			int origem = 0;
+//			if(Math.random() > 0.6)
+//				origem = rand.nextInt(19);
+//			else
+//				origem = rand.nextInt(8);
+//			
+//			int dest = 0;
+//			if(Math.random() > 0.2 && origem < 4)
+//				dest = 4 + rand.nextInt(20-4);
+//			else
+//				dest = origem+1 + rand.nextInt(19-origem);
+//			 
+//			p1.setDestino(dest);
+//			p1.setPartida(origem);
+//			int temp = 0;
+//			if(Math.random() > 0.6 && origem  < 5)
+//				temp = 100 + rand.nextInt(200-100);
+//			else
+//				temp = 2 + rand.nextInt(600);
+//			p1.setInicioEspera(temp);
+//			passageiros.add(p1);
+//			
+//		}
+//		for(Passageiros p:passageiros) {
+//			if(p.getDestino() > 19) throw new Exception("alem do possivel");
+//		}
 		
-//		Passageiros p1 = new Passageiros();
-//		p1.setDestino(2);
-//		p1.setPartida(0);
-//		p1.setInicioEspera(9);
-//		passageiros.add(p1);
-//		Passageiros p2 = new Passageiros();
-//		p2.setDestino(3);
-//		p2.setPartida(0);
-//		p2.setInicioEspera(78);
-//		passageiros.add(p2);
-//		Passageiros p3 = new Passageiros();
-//		p3.setDestino(3);
-//		p3.setPartida(1);
-//		p3.setInicioEspera(35);
-//		passageiros.add(p3);
-//		Passageiros p4 = new Passageiros();
-//		p4.setDestino(3);
-//		p4.setPartida(2);
-//		p4.setInicioEspera(81);
-//		passageiros.add(p4);
-//		Passageiros p5 = new Passageiros();
-//		p5.setDestino(3);
-//		p5.setPartida(2);
-//		p5.setInicioEspera(40);
-//		passageiros.add(p5);
+		Passageiros p1 = new Passageiros();
+		p1.setDestino(2);
+		p1.setPartida(0);
+		p1.setInicioEspera(9);
+		passageiros.add(p1);
+		Passageiros p2 = new Passageiros();
+		p2.setDestino(3);
+		p2.setPartida(0);
+		p2.setInicioEspera(78);
+		passageiros.add(p2);
+		Passageiros p3 = new Passageiros();
+		p3.setDestino(3);
+		p3.setPartida(1);
+		p3.setInicioEspera(35);
+		passageiros.add(p3);
+		Passageiros p4 = new Passageiros();
+		p4.setDestino(3);
+		p4.setPartida(2);
+		p4.setInicioEspera(81);
+		passageiros.add(p4);
+		Passageiros p5 = new Passageiros();
+		p5.setDestino(3);
+		p5.setPartida(2);
+		p5.setInicioEspera(40);
+		passageiros.add(p5);
 		return passageiros;
 	}
 	
@@ -87,8 +88,13 @@ public class TesteAPI {
 		for(int i = 0; i<tempos.length;i++) {
 			Onibus novo = new Onibus();
 			novo.setId(i);
-//			if (Math.random() > 0.5)
-			novo.atribuiModificavel();
+			if (tempos[i] < 6300 || (tempos[i] > 7200 && tempos[i] < 9000) || tempos[i]>15300)
+				novo.atribuiModificavel();
+			else {
+				novo.atribuiFixo();
+//				System.out.println("fixo o de "+tempos[i]/(15*60));
+			}
+//			novo.atribuiModificavel();
 			novo.setCapacidade(120);
 			novo.setHorarioChegada(tempos[i]);
 			onibusd.add(novo);
@@ -178,10 +184,11 @@ public class TesteAPI {
 			
 		
 		double tempoOnibus[] = {
-//				10, 15, 71, 80, 100
+//				71, 15, 10, 80, 100
 //				10, 53, 90, 122, 154, 164, 199, 220, 280, 354, 377, 401, 454, 480, 510, 550, 583, 604, 645, 666
-				35680,46446,57967,18570,26959,52969,32322,62839,22713,31718,43202,54987,65691,24010,44924,52526,63264,24530,28657,51362,60568,69430,38183,50055,61826,20197,28795,34998,45492,58017,24629,36814,44532,56895,67178,57137,48448,58865,49036,49275,43369,52229,64264,15328,22552,28747,38486,49144,61781,23065,30523,14497,20845,28627,51509,62081,70554,60632,70477,20086,50431,60115,69585,52819,61666,15840,21987,33026,41827,54781,65482,23377,19505,26330,36792,50271,59786,16348,27643,36506,46191,57296,16779,23264,30287,39950,56984,66138,74256,22852,29197,38148,49456,62005,19586,26374,47827,58497,22379
+				18570,35680,46446,57967,26959,52969,32322,62839,22713,31718,43202,54987,65691,24010,44924,52526,63264,24530,28657,51362,60568,69430,38183,50055,61826,20197,28795,34998,45492,58017,24629,36814,44532,56895,67178,57137,48448,58865,49036,49275,43369,52229,64264,15328,22552,28747,38486,49144,61781,23065,30523,14497,20845,28627,51509,62081,70554,60632,70477,20086,50431,60115,69585,52819,61666,15840,21987,33026,41827,54781,65482,23377,19505,26330,36792,50271,59786,16348,27643,36506,46191,57296,16779,23264,30287,39950,56984,66138,74256,22852,29197,38148,49456,62005,19586,26374,47827,58497,22379
 				};
+		Arrays.sort(tempoOnibus);
 		for(int i = 0; i <tempoOnibus.length; i++) {
 			tempoOnibus[i] =(int)tempoOnibus[i]/4; 
 		}
@@ -190,7 +197,7 @@ public class TesteAPI {
 		ArrayList<Onibus> onibus = todosOnibus(tempoOnibus);
 		System.out.println(onibus.size());
 		int qtdPontos = 39;
-		int nGeracoes = 30000;
+		int nGeracoes = 200;
 		
 //		Cromossomo c = new Cromossomo(qtdPontos, onibus);
 //		for(int i = 0; i <c.getConteudo().length; i++)
@@ -260,33 +267,33 @@ public class TesteAPI {
 
 class valores implements TemposMedios{
 //	 {10, 15, 71, 80, 100};
-//	double tempoParadas[] = {3, 2, 4, 2};
-	double tempoParadas[] = {6, 7, 8, 12, 5, 28, 12, 4, 6, 7, 12, 9, 4, 7, 13, 8, 7, 6, 8, 10};
+	double tempoParadas[] = {3, 2, 4, 2};
+//	double tempoParadas[] = {6, 7, 8, 12, 5, 28, 12, 4, 6, 7, 12, 9, 4, 7, 13, 8, 7, 6, 8, 10};
 //	double [][]temposTrajetos = {	
 //			{3, 7, 1, 3, 2}, 
 //			{2, 4, 2, 4, 2}, 
 //			{4, 5, 1, 6, 3}};
-	double [][]temposTrajetos = new double[20][20];
+//	double [][]temposTrajetos = new double[20][20];
 	Random rand = new Random(); 
-	public valores() {
-		for (int i = 0; i < temposTrajetos.length; i++) {     
-	        for (int j = 0; j < temposTrajetos[0].length; j++) {
-	        	temposTrajetos[i][j] = 40 + rand.nextInt((100 - 40));
-	        }
-	    }
-	}
-	
-	public void mostra() {
-		for (int i = 0; i < temposTrajetos.length; i++) {     
-	        for (int j = 0; j < temposTrajetos[0].length; j++) {
-	            System.out.println(temposTrajetos[i][j]);
-	        } 
-	    }
-	}
-//	double [][]temposTrajetos = {	
-//			{3, 7, 1, 3, 2}, 
-//			{2, 4, 2, 4, 2}, 
-//			{4, 5, 1, 6, 3}};
+//	public valores() {
+//		for (int i = 0; i < temposTrajetos.length; i++) {     
+//	        for (int j = 0; j < temposTrajetos[0].length; j++) {
+//	        	temposTrajetos[i][j] = 40 + rand.nextInt((100 - 40));
+//	        }
+//	    }
+//	}
+//	
+//	public void mostra() {
+//		for (int i = 0; i < temposTrajetos.length; i++) {     
+//	        for (int j = 0; j < temposTrajetos[0].length; j++) {
+//	            System.out.println(temposTrajetos[i][j]);
+//	        } 
+//	    }
+//	}
+	double [][]temposTrajetos = {	
+			{1, 7, 3, 3, 2}, 
+			{2, 4, 2, 4, 2}, 
+			{1, 5, 4, 6, 3}};
 	@Override
 	public double tempoEntrePontos(int ponto, int idOnibus, double tempoCorrente) {
 		// TODO Auto-generated method stub

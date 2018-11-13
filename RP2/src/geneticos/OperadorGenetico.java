@@ -27,8 +27,8 @@ public class OperadorGenetico {
 		int quantidadeGenes=original.conteudo.length;//quantidade de Genes que tem um Cromossomo;
 		Cromossomo resultante=new Cromossomo(quantidadeGenes);
 		resultante.conteudo=original.conteudo.clone();
-		int onibus = rand.nextInt(qtdOnibus);
-		
+		int onibus = rand.nextInt(b.getOnibusMutaveis().length);
+		onibus = b.getOnibusMutaveis()[onibus];
 //		System.out.println(onibus);
 		for(int i=0; i < qtdPontos; i++) {
 			if(Math.random() > 0.5)

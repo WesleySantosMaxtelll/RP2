@@ -25,15 +25,16 @@ public class Cromossomo {
 	
 	public Cromossomo(int quantidadePontos, ArrayList<Onibus> onibus) {
 		conteudo=new boolean[quantidadePontos*onibus.size()];
+		
 		if(Math.random() < 0.2) {
 			Arrays.fill(conteudo, Boolean.TRUE);
-		}else {
+		} else {
 			for(int i = 0; i<onibus.size();i++) {
 				for (int j = 0; j <quantidadePontos; j++) {
 					if(onibus.get(i).isFixo()) {
 						conteudo[i*quantidadePontos+j] = true;
 					} else {
-						if(Math.random() < 0.2) 
+						if(Math.random() < 0.3) 
 							conteudo[i*quantidadePontos+j] = false;
 						else
 							conteudo[i*quantidadePontos+j] = true;
