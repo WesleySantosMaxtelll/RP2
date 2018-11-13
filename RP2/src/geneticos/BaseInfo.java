@@ -30,11 +30,14 @@ public class BaseInfo {
 	private final int fatorDivisao = 80;
 	private double tempoOnibus[];
 	private Integer[] mutaveis;
+	private Integer[] onibusMutaveis;
 	
 	public void definePermitidos(ArrayList<Onibus> onibus, int qtdPontos) {
 		ArrayList<Integer> a = new ArrayList<>();
+		ArrayList<Integer> b = new ArrayList<>();
 		for(Onibus o:onibus) {
 			if(!o.isFixo()) {
+				b.add(onibus.indexOf(o));
 				for(int i = onibus.indexOf(o)*qtdPontos; i < (1+onibus.indexOf(o))*qtdPontos;i++) {
 					a.add(i);
 				}
@@ -42,10 +45,25 @@ public class BaseInfo {
 		}
 		mutaveis = new Integer[a.size()];
 		mutaveis = a.toArray(mutaveis);
+		onibusMutaveis = new Integer[b.size()];
+		onibusMutaveis = b.toArray(onibusMutaveis);
 		
 	}
 	
 	
+	
+	public Integer[] getOnibusMutaveis() {
+		return onibusMutaveis;
+	}
+
+
+
+	public void setOnibusMutaveis(Integer[] onibusMutaveis) {
+		this.onibusMutaveis = onibusMutaveis;
+	}
+
+
+
 	public Cromossomo getMelhorAteAgora() {
 		return melhorAteAgora;
 	}
