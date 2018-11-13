@@ -2,6 +2,9 @@ package teste;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -98,7 +101,7 @@ public class TesteAPI {
 		
 		try {
 			 
-			Scanner sc= new Scanner(new File("C:\\Users\\gusta\\Downloads\\passageiros (2).txt"));
+			Scanner sc= new Scanner(new File("passageiros.txt"));
 			while(sc.hasNext()){
 				String[] s = sc.nextLine().split(";");
 				Passageiros p = new Passageiros();
@@ -148,6 +151,32 @@ public class TesteAPI {
 //		
 //		
 //		double tempoOnibus[] = {10, 15, 71, 80, 100};
+
+		File file=null;// pasta pra salvar os resultados
+		try{
+			file=new File("SaidaTreinamento");
+			file.mkdir();
+		}catch(Exception e){
+			
+		}
+		
+		String[] directories = file.list(new FilenameFilter() {
+			
+			@Override
+			public boolean accept(File dir, String name) {
+				return new File(dir, name).isDirectory();
+			}
+		});
+		String versao = Integer.toString(directories.length);
+		
+		try{
+			file=new File("SaidaTreinamento/V"+versao);
+			file.mkdir();
+		}catch(Exception e){
+			
+		}
+			
+		
 		double tempoOnibus[] = {
 //				10, 15, 71, 80, 100
 //				10, 53, 90, 122, 154, 164, 199, 220, 280, 354, 377, 401, 454, 480, 510, 550, 583, 604, 645, 666
@@ -161,7 +190,7 @@ public class TesteAPI {
 		ArrayList<Onibus> onibus = todosOnibus(tempoOnibus);
 		System.out.println(onibus.size());
 		int qtdPontos = 39;
-		int nGeracoes = 4;
+		int nGeracoes = 30000;
 		
 //		Cromossomo c = new Cromossomo(qtdPontos, onibus);
 //		for(int i = 0; i <c.getConteudo().length; i++)
@@ -173,8 +202,47 @@ public class TesteAPI {
 		Otibus o = new Otibus();
 //		v.mostra();4
 		long li = System.currentTimeMillis();
-		Resposta r = o.start(passageiros, onibus, v, qtdPontos, nGeracoes);
 		
+		
+		Resposta r = o.start(passageiros, onibus, v, qtdPontos, nGeracoes, versao, file);
+		
+		String saida = "";
+
+		for(Cromossomo c:r.getUltimaGeracao()) {
+			saida +=Arrays.toString(c.getConteudo())+"\n";
+		}
+		
+		try {
+            FileWriter writer = new FileWriter("SaidaTreinamento/V"+versao+"/ultimaGeracaoV"+versao+".txt", false);
+            writer.write(saida);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+		saida = "origem:destino:inicio:termino:idOnibus\n";
+		for(PassageiroResposta re:r.getBaseline()) {
+			saida += re.getPartida()+":"+re.getDestino()+":"+re.getInicioEspera()+":"+re.getHorarioTermino()+":"+re.getOnibusId()+"\n";
+		}
+		try {
+            FileWriter writer = new FileWriter("SaidaTreinamento/V"+versao+"/passageirosBaselineV"+versao+".txt", false);
+            writer.write(saida);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+		saida = "origem:destino:inicio:termino:idOnibus\n";
+		for(PassageiroResposta re:r.getMelhorGeracao()) {
+			saida += re.getPartida()+":"+re.getDestino()+":"+re.getInicioEspera()+":"+re.getHorarioTermino()+":"+re.getOnibusId()+"\n";
+		}
+		try {
+            FileWriter writer = new FileWriter("SaidaTreinamento/V"+versao+"/passageirosMelhorGeracaoV"+versao+".txt", false);
+            writer.write(saida);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		
 		System.out.println((System.currentTimeMillis()-li)/1000.0);
 //		for(PassageiroResposta pr:r.getMelhorGeracao()) {

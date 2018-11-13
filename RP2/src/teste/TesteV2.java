@@ -15,7 +15,7 @@ public class TesteV2 implements TemposMedios {
 	 public TesteV2(){
 		 try {
 			 
-			Scanner sc= new Scanner(new File("C:\\Users\\gusta\\Downloads\\averages (2).txt"));
+			Scanner sc= new Scanner(new File("averages.txt"));
 			while(sc.hasNext()){
 				tempoTrajeto.add( Double.parseDouble(sc.nextLine().split(";")[1]));
 			}

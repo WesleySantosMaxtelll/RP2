@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,15 +22,10 @@ import itens.TemposMedios;
 public class Principal {
 	
 	
-public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,boolean[] alfabeto, Resposta resposta){
+public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,
+		double mutacaoTx,boolean[] alfabeto, Resposta resposta, String versao, File file){
 		
-		File file=null;// pasta pra salvar os resultados
-		try{
-			file=new File("SaidaTreinamento");
-			file.mkdir();
-		}catch(Exception e){
-			
-		}
+		
 		Fitness f=  new Fitness();
 		//temos que ter uma populaçã aleatoria;
 		ArrayList<Double>fitMedio=new ArrayList<>();
@@ -84,13 +80,20 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			
 			Cromossomo[] novaGeracao=new Cromossomo[cromossomos.length];
 			
-			if(Math.random() > 0.98) {
-				correcao = 50;
+			if(Math.random() > 0.95) {
+				correcao = 72;
 			} else {
-				if(correcao >0) correcao -=5;
+				if(correcao >0) correcao -=3;
 			}
 			
-			double[]probabilidade ={1+geracao*0.008,correcao+(200/(geracao*0.3+1)),1+geracao*0.05};//chances de cada operação genetica
+			double clonagem = 1+geracao*0.002;
+			double mutacao = correcao+(400/(geracao*0.002+1));
+			double crossover = 1+geracao*0.005;
+			double soma = clonagem+mutacao+crossover;
+			DecimalFormat df = new DecimalFormat("0.0##");
+			System.out.println(df.format(clonagem)+"("+df.format(clonagem/soma)+")" +"\t"+ 
+			df.format(mutacao)+"("+df.format(mutacao/soma)+")" +"\t"+df.format(crossover)+"("+df.format(crossover/soma)+")");
+			double[]probabilidade ={clonagem, mutacao, crossover};//chances de cada operação genetica
 			Roleta roletaOperacao = new Roleta(probabilidade);// roleta pra escolher a operação;
 			
 			for(int i=0;i<cromossomos.length;i++){
@@ -162,15 +165,16 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			saida += String.valueOf(d)+"\n";
 		}
 		try {
-            FileWriter writer = new FileWriter("dadosSaidaV2.txt", false);
+            FileWriter writer = new FileWriter("SaidaTreinamento/V"+versao+"/mediaPorGeracaoV"+versao+".txt", false);
             writer.write(saida);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 		
+		
 		JOptionPane.showMessageDialog(null, 1/daux);
-		new Grafico1(fitMedio,1/daux,minimos,maximos).salvarImagem("graficoEvolucao2",file);;
+		new Grafico1(fitMedio,1/daux,minimos,maximos).salvarImagem("graficoEvolucaoV"+versao,file);;
 		
 		// graficos de inicio e termino
 		
@@ -180,7 +184,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 		ArrayList<Double>X= new ArrayList<>();
 		ArrayList<Double>Y= new ArrayList<>();
 		for(PassageiroResposta p: resposta.getBaseline()){
-			System.out.println("i"+auxcont+"-> "+p.getInicioEspera()+" : "+p.getHorarioTermino());
+//			System.out.println("i"+auxcont+"-> "+p.getInicioEspera()+" : "+p.getHorarioTermino());
 			//if(Math.random()>0.05)continue;
 			auxcont++;
 			X.add(p.getInicioEspera());
@@ -195,7 +199,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			
 		}
 		
-		new GraficoDupla(xx,yy, null, 60).salvarImagem("GinicioFimBaseline", file);;
+		new GraficoDupla(xx,yy, null, 60).salvarImagem("GinicioFimBaselineV"+versao, file);;
 		}
 		int minIndex=-1;
 		double minFitaux= Double.MAX_VALUE;
@@ -213,7 +217,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			ArrayList<Double>X= new ArrayList<>();
 			ArrayList<Double>Y= new ArrayList<>();
 			for(PassageiroResposta p: resposta.getMelhorGeracao()){
-				System.out.println("i"+auxcont+"-> "+p.getInicioEspera()+" : "+p.getHorarioTermino());
+//				System.out.println("i"+auxcont+"-> "+p.getInicioEspera()+" : "+p.getHorarioTermino());
 				//if(Math.random()>1)continue;
 				auxcont++;
 				X.add(p.getInicioEspera());
@@ -228,7 +232,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 				
 			}
 			
-			new GraficoDupla(xx,yy, null, 60).salvarImagem("GinicioFImTreinado", file);;
+			new GraficoDupla(xx,yy, null, 60).salvarImagem("GinicioFImTreinadoV"+versao, file);
 			}
 		
 		

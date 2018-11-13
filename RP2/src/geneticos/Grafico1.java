@@ -67,7 +67,7 @@ public class Grafico1 extends JFrame {
 		
 		double razao= 800/(100+max-min);
 		
-		double r= (1500/dados.size());
+		double r= (1500.0/(int)(dados.size()*1.1));
 		
 		if(p!=null)r=r*(p.zoom);
 		

@@ -1,4 +1,5 @@
 package api_interface;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -18,7 +19,7 @@ public class Otibus {
 	
 	
 	public Resposta start(ArrayList<Passageiros> passageiros, ArrayList<Onibus> onibus, TemposMedios temposMedios,
-			int quantidadePontos, int numeroGeracoes) {
+			int quantidadePontos, int numeroGeracoes, String versao, File file) {
 		
 //		double[] fitnessGeracao = new double[numeroGeracoes];
 //		boolean[] fixos = defineTrajetosconstantes(onibus);
@@ -68,7 +69,7 @@ public class Otibus {
 //		rodaTeste();
 
 //		rodaTeste();
-		run(cromossomos, resposta, numeroGeracoes);
+		run(cromossomos, resposta, numeroGeracoes, versao, file);
 //		for (OnibusUtilizacao o:oni) {
 //			System.out.println(o.getCapacidade());
 //		}
@@ -91,7 +92,7 @@ public class Otibus {
 		System.out.println(f.calculaFitness(c, null));
 	}
 	
-	private void run(Cromossomo[]cromossomos, Resposta resposta, int geracoes) {
+	private void run(Cromossomo[]cromossomos, Resposta resposta, int geracoes, String versao, File file) {
 		boolean[]alfabeto={true,false};
 		try {
 			Thread.sleep(20);
@@ -100,13 +101,13 @@ public class Otibus {
 			e.printStackTrace();
 		}
 		
-		Cromossomo[] geracao = Principal.VidaCruel(cromossomos, geracoes, 3, alfabeto, resposta);
+		Cromossomo[] geracao = Principal.VidaCruel(cromossomos, geracoes, 3, alfabeto, resposta, versao, file);
 		resposta.setUltimaGeracao(geracao);
 		
 	}
 	
 	private Cromossomo[] definePrimeiraGeracao(int quantidadePontos, ArrayList<Onibus> onibus) {
-		Cromossomo[]cromossomos= new Cromossomo[100];
+		Cromossomo[]cromossomos= new Cromossomo[20];
 		for(int i=0;i<cromossomos.length;i++){
 			cromossomos[i]= new Cromossomo(quantidadePontos,onibus);
 		}
