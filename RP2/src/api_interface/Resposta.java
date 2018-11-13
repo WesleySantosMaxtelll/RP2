@@ -9,8 +9,8 @@ public class Resposta {
 	private double fitnessBaseline;
 	private ArrayList<Double> fitnessPorGeracao;
 	
-	private ArrayList<PassageiroResposta> baseline;
-	private ArrayList<PassageiroResposta> melhorGeracao;
+	private ArrayList<PassageiroResposta> baseline= new ArrayList<>();
+	private ArrayList<PassageiroResposta> melhorGeracao= new ArrayList<>();
 	
 	
 	

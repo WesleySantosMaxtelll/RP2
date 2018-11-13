@@ -20,10 +20,14 @@ public class Grafico1 extends JFrame {
 	Painel p;
 	
 	ArrayList<Double>dados;
+	ArrayList<Double>minimos;
+	ArrayList<Double>maximos;
 	double alturaLinhabase=0;
-	public Grafico1(ArrayList<Double>dados, double alturaLinhabase){
+	public Grafico1(ArrayList<Double>dados, double alturaLinhabase,ArrayList<Double>minimos,ArrayList<Double>maximos){
+		this.maximos=maximos;
 		this.alturaLinhabase=alturaLinhabase;
 		this.dados=dados;
+		this.minimos=minimos;
 		setSize(2000,700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -63,7 +67,8 @@ public class Grafico1 extends JFrame {
 		
 		double razao= 800/(100+max-min);
 		
-		double r=5;
+		double r= (1500/dados.size());
+		
 		if(p!=null)r=r*(p.zoom);
 		
 		double antX =120;
@@ -77,6 +82,34 @@ public class Grafico1 extends JFrame {
 			antX=antX+r;
 			antY=getHeight()-((int)(dado.doubleValue()*razao)-(int)(min*razao)+80);
 		}
+		///resetando parametros de ligamento de dados
+		antX =120;
+		antY=getHeight()-60;
+		
+		g.setColor(Color.blue);
+		g2.setStroke(new BasicStroke(2));
+		for(Double minimo:minimos){
+			
+			if(minimo!=minimos.get(0))
+				g.drawLine((int)antX, antY,(int) (antX+r), getHeight()-((int)(minimo.doubleValue()*razao)-(int)(min*razao)+80));
+				antX=antX+r;
+				antY=getHeight()-((int)(minimo.doubleValue()*razao)-(int)(min*razao)+80);
+		}
+		///resetando parametros de ligamento de dados
+				antX =120;
+				antY=getHeight()-60;
+				
+				g.setColor(Color.MAGENTA);
+				g2.setStroke(new BasicStroke(2));
+				for(Double maximo:maximos){
+					
+					if(maximo!=minimos.get(0))
+						g.drawLine((int)antX, antY,(int) (antX+r), getHeight()-((int)(maximo.doubleValue()*razao)-(int)(min*razao)+80));
+						antX=antX+r;
+						antY=getHeight()-((int)(maximo.doubleValue()*razao)-(int)(min*razao)+80);
+				}
+		
+		
 		
 		g.setColor(Color.DARK_GRAY);
 		g.drawLine(120, getHeight()-60, 120, 0);

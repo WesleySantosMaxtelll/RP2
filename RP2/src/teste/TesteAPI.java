@@ -98,7 +98,7 @@ public class TesteAPI {
 		
 		try {
 			 
-			Scanner sc= new Scanner(new File("/home/maxtelll/Documents/USP/sextoSemestre/rp2/passageiros.txt"));
+			Scanner sc= new Scanner(new File("C:\\Users\\gusta\\Downloads\\passageiros (2).txt"));
 			while(sc.hasNext()){
 				String[] s = sc.nextLine().split(";");
 				Passageiros p = new Passageiros();
@@ -161,7 +161,7 @@ public class TesteAPI {
 		ArrayList<Onibus> onibus = todosOnibus(tempoOnibus);
 		System.out.println(onibus.size());
 		int qtdPontos = 39;
-		int nGeracoes = 200;
+		int nGeracoes = 4;
 		
 //		Cromossomo c = new Cromossomo(qtdPontos, onibus);
 //		for(int i = 0; i <c.getConteudo().length; i++)
@@ -174,6 +174,8 @@ public class TesteAPI {
 //		v.mostra();4
 		long li = System.currentTimeMillis();
 		Resposta r = o.start(passageiros, onibus, v, qtdPontos, nGeracoes);
+		
+		
 		System.out.println((System.currentTimeMillis()-li)/1000.0);
 //		for(PassageiroResposta pr:r.getMelhorGeracao()) {
 //			System.out.println(pr.getDestino() + " "+pr.getPartida() + " " +pr.getHorarioTermino() + " "+pr.getOnibusId());

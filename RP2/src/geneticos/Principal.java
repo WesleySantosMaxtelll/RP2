@@ -1,6 +1,7 @@
 package geneticos;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -11,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import api_interface.PassageiroResposta;
 import api_interface.Resposta;
+import graficos.GraficoDupla;
 import graficos.GraficoTreino;
 import itens.OnibusUtilizacao;
 import itens.Pessoa;
@@ -21,10 +23,18 @@ public class Principal {
 	
 public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,double mutacaoTx,boolean[] alfabeto, Resposta resposta){
 		
-	
+		File file=null;// pasta pra salvar os resultados
+		try{
+			file=new File("SaidaTreinamento");
+			file.mkdir();
+		}catch(Exception e){
+			
+		}
 		Fitness f=  new Fitness();
 		//temos que ter uma populaçã aleatoria;
 		ArrayList<Double>fitMedio=new ArrayList<>();
+		ArrayList<Double>minimos=new ArrayList<>();
+		ArrayList<Double>maximos=new ArrayList<>();
 		
 		double fitness[]=new double[cromossomos.length];// para armazenar os fitness;
 		Cromossomo[]geracaoAtual=cromossomos;
@@ -34,6 +44,7 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 		int qtdOnibus = BaseInfo.getInstance().getOnibusListados().size();
 		resposta.setBaseline(new ArrayList<PassageiroResposta>());
 		double daux=f.calculaFitness(cAux, resposta.getBaseline());
+		
 		int correcao = 0;
 		int []auxint= new int[5000];
 		GraficoTreino gt= new GraficoTreino(geracaoAtual,auxint);
@@ -46,15 +57,18 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
 			
 			double totalFitness=0;
 			double minfit= Double.MAX_VALUE;
+			double verominfit= Double.MAX_VALUE;
 //			System.out.println("Fitness por cromossomo:");
 			for(int aux=0; aux<fitness.length;aux++){
 				double tempFit = f.calculaFitness(geracaoAtual[aux], null);
 				fitness[aux]=tempFit;
 				if(tempFit<minfit)minfit=tempFit;
+				if((1/tempFit)<verominfit)verominfit=(1/tempFit);
 //				System.out.println(tempFit);
 				totalFitness+=1/tempFit;///FUNCAO DE MEDIR O FITNESS DO CROMOSSOMO
 			}
-			
+			maximos.add((1/minfit));
+			minimos.add((verominfit));
 			//normalizando fitness
 			for(int aux=0; aux<fitness.length;aux++){
 				fitness[aux]-=minfit;
@@ -156,7 +170,70 @@ public static Cromossomo[] VidaCruel(Cromossomo[] cromossomos,int Maxgeracoes,do
         }
 		
 		JOptionPane.showMessageDialog(null, 1/daux);
-		new Grafico1(fitMedio,1/daux);
+		new Grafico1(fitMedio,1/daux,minimos,maximos).salvarImagem("graficoEvolucao2",file);;
+		
+		// graficos de inicio e termino
+		
+		{
+		int auxcont=0;
+		
+		ArrayList<Double>X= new ArrayList<>();
+		ArrayList<Double>Y= new ArrayList<>();
+		for(PassageiroResposta p: resposta.getBaseline()){
+			System.out.println("i"+auxcont+"-> "+p.getInicioEspera()+" : "+p.getHorarioTermino());
+			//if(Math.random()>0.05)continue;
+			auxcont++;
+			X.add(p.getInicioEspera());
+			Y.add(p.getHorarioTermino());
+		}
+		
+		double[] xx= new double[X.size()];
+		double[] yy= new double[X.size()];
+		for(int i=0;i<X.size();i++){
+			xx[i]=X.get(i)*4;
+			yy[i]=(Y.get(i)*4)/3600;
+			
+		}
+		
+		new GraficoDupla(xx,yy, null, 60).salvarImagem("GinicioFimBaseline", file);;
+		}
+		int minIndex=-1;
+		double minFitaux= Double.MAX_VALUE;
+		for(int i=0;i<geracaoAtual.length;i++){
+			double aux=f.calculaFitness(geracaoAtual[i],null);
+			if(aux<minFitaux){
+				aux=minFitaux;
+				minIndex=i;	
+			}
+		}
+		f.calculaFitness(geracaoAtual[minIndex],resposta.getMelhorGeracao() );
+		{
+			int auxcont=0;
+			
+			ArrayList<Double>X= new ArrayList<>();
+			ArrayList<Double>Y= new ArrayList<>();
+			for(PassageiroResposta p: resposta.getMelhorGeracao()){
+				System.out.println("i"+auxcont+"-> "+p.getInicioEspera()+" : "+p.getHorarioTermino());
+				//if(Math.random()>1)continue;
+				auxcont++;
+				X.add(p.getInicioEspera());
+				Y.add(p.getHorarioTermino());
+			}
+			
+			double[] xx= new double[X.size()];
+			double[] yy= new double[X.size()];
+			for(int i=0;i<X.size();i++){
+				xx[i]=X.get(i)*4;
+				yy[i]=(Y.get(i)*4)/3600;
+				
+			}
+			
+			new GraficoDupla(xx,yy, null, 60).salvarImagem("GinicioFImTreinado", file);;
+			}
+		
+		
+		
+		
 		return geracaoAtual;
 	}
 
