@@ -1,0 +1,69 @@
+Neste documento voce encontrará as instruções basicas para executar o treinamento do algortimo e coletar sua saida.
+
+Em trecho executavel de código instancie um objeto da classe Otibus
+-o metodo desta classe responsavel por treinar o modelo e retornar sua resposta é metodo .start()
+que tem como parâmetros os seguintes tipos nesta ordem:
+  (1) ArrayList de Objetos do tipo Passageiro
+  (2) ArrayList de Objetos do tipo Onibus
+  (3) Um Objeto que implemente a interface TemposMedios
+  (4) Um inteirno Expressando a quantidade de pontos da linha de onibus analisada.
+  (5) Um inteiro Expressando a quantidade de Gerações a serem iteradas pelo algoritmo Genético
+ 
+ Para instanciar o parametro (1):
+ 
+  -Crie um ArrayList do tipo Passageiro
+    Para inserir cada passageiro que se queira inserir:
+      -instancie um Tipo Passageiro p.
+      através do metodo setInicioEspera() insira o tempo em que p inicia sua espera. Este dado deve vir de uma 
+      base de dados.
+      -através do metodo setPartida() insira o indice do ponto de partida de p. Este dado deve vir de uma base
+      de dados
+      -através do metodo setDestino() insira o indice do ponto de destido de p. Este dado deve vir de uma base 
+      de dados
+     insira p na lista de passageiros
+     
+  Para instanciar o parametro (2):
+  
+    -Crie um ArrayList do tipo Onibus
+      Para cada Onibus a ser inserido:
+        -instancie um objeto do tipo Onibus o 
+        -atribua um ID unico e em sequencia em o através do metodo setID().
+        -atribua um inteiro expressando a capacidade de transporte de passageiros em o através do metodo
+        setCapacidade()
+        -atribua um double com o horario em que este onibus o inicia seu trajeto través do metodo
+        Set Horario Chegada. Este dado deve vir de uma base de dados.
+        -invoque o metodo atribuiModificavel() em o
+       adicione o na lista de onibus
+  
+  Para instanciar o parametro (3):
+  
+    -Crie uma Classe que implemente a interface TemposMedos.
+      Para isso:
+      -Sobrescreva o metodo tempoEntrePontos().Este metodo deve devolver uma estimativa de tempo de trajeto entre dois ponto
+       baseado nos seguintes parâmetros em ordem:
+        
+        (1) um inteiro marcando que ponto do trajeto esta sendo considerado Ex: 4, ou seja trajeto de 4-5
+        (2) um inteiro com o ID de um onibus
+        (3) um double que informa o momento do dia 
+        
+       -Sobrescreva o metodo tempoParadoNoPonto(). Este metodo deve devolver uma estimativa de tempo que um onibus gasta parando
+       em um determinado ponto baseado nos seguintes parâmetros:
+       
+       (1) um inteiro marcando que ponto do trajeto esta sendo considerado Ex: 7: (tempo gasto no ponto 7)
+       (2) um inteiro com o ID de um onibus
+       (3) um double marcando o momento do dia (o momento do dia pode ser levado de consideração)
+       (4) um inteiro discriminando a quantidade de passageiros envolvida.(pode ser ignorada ou levada em consideração)
+    
+    Para o parâmetro (4):
+      
+      o parâmetro (4) deve expressar a quantidade de pontos da linha analisada
+      
+    Para o parâmetro (5):
+      
+      o parametro (5) deve exoressar a quantidade de gerações a serem iteradas. O tempo de execução é linearmente proporcinal 
+      a este numero
+
+
+
+        
+      
